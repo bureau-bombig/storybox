@@ -9,10 +9,68 @@ import SwiftUI
 
 struct KeyboardInstructionsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20) {
+            Text("Keyboard Operating Instructions")
+                .font(.golosUI(size: 42))
+                .foregroundColor(.white)
+                .padding(.horizontal)
+                .multilineTextAlignment(.center)
+
+            VStack(spacing: 12) {
+                InstructionView(
+                    image: "keyboard",
+                    text: "Use the arrow keys to navigate through the app."
+                )
+                InstructionView(
+                    image: "return",
+                    text: "Press the Enter key to select or confirm actions."
+                )
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
+
+            Button("Alright") {
+                print("Proceed to next screen")
+            }
+            .font(.golosUI(size: 18))
+            .foregroundColor(.white)
+            .padding()
+            .background(Color.AppPrimaryDark)
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.AppSecondary, lineWidth: 2)
+            )
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.AppPrimary)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
+struct InstructionView: View {
+    let image: String
+    let text: String
+
+    var body: some View {
+        HStack {
+            Image(systemName: image)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+                .foregroundColor(.white)
+
+            Text(text)
+                .font(.literata(size: 16))
+                .foregroundColor(.white)
+                .padding(.leading, 8)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+		
 #Preview {
     KeyboardInstructionsView()
 }

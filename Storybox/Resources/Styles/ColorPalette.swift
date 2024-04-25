@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-struct ColorPalette: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    ColorPalette()
+extension Color {
+    public static let AppPrimary = Color("AppPrimary")
+    public static let AppPrimaryDark = Color("AppPrimaryDark")
+    public static let AppPrimaryLight = Color("AppPrimaryLight")
+    public static let AppSecondary = Color("AppSecondary")
+    public static let AppTertiary = Color("AppTertiary")
 }

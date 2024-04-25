@@ -7,9 +7,41 @@
 
 import SwiftUI
 
+
 struct WelcomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20) {
+            Text("Welcome to Storybox")
+                .font(.golosUI(size: 42))
+                .foregroundColor(.white)  // Set text color to white
+            
+            Text("Explore the power of storytelling and share your unique perspectives.")
+                .font(.golosUI(size: 16))
+                .foregroundColor(.white)  // Set text color to white
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            Button(action: {
+                // Action for the Start button
+                print("Start button tapped")
+            }) {
+                Text("Start")
+                    .font(.golosUI(size: 18))
+                    .foregroundColor(.white)  // Set button text color to white
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 50)
+                    .background(Color.AppPrimaryDark)  // Use PrimaryDark for button background
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.AppSecondary, lineWidth: 2)
+                    )
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.AppPrimary)  // Use Primary color for background
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

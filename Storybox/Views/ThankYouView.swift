@@ -7,9 +7,43 @@
 
 import SwiftUI
 
+
 struct ThankYouView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+
+                VStack(spacing: 20) {
+                    Text("Thank You!")
+                        .font(.golosUI(size: 42))
+                        .foregroundColor(.white)
+                        .padding()
+
+                    Text("Your contribution is highly valuable to our project. Feel free to share more thoughts!")
+                        .font(.literata(size: 16))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding()
+
+                    Button("Start New") {
+                        // Logic to start the process over
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.AppSecondary)
+                    .cornerRadius(10)
+                    .padding()
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color.AppPrimary)
+                .cornerRadius(10)
+
+                Spacer()
+            }
+            .background(Color.AppPrimary)
+            .edgesIgnoringSafeArea(.all)
+        }
     }
 }
 

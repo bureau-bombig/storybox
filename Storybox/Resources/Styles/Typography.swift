@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct Typography: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+extension Font {
+    public static func golosUI(size: CGFloat) -> Font {
+        return Font.custom("GolosUI-VF", size: size)
     }
-}
 
-#Preview {
-    Typography()
+    public static func literata(size: CGFloat) -> Font {
+        return Font.custom("LiterataVariable", size: size)
+    }
 }

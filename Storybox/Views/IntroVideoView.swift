@@ -6,10 +6,30 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct IntroVideoView: View {
+    @State private var player = AVPlayer(url: Bundle.main.url(forResource: "IntroVideo", withExtension: "mp4")!)
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VideoPlayer(player: player)
+            .onAppear {
+                player.play()
+                // Set up a loop for the video
+                NotificationCenter.default.addObserver(
+                    forName: .AVPlayerItemDidPlayToEndTime,
+                    object: player.currentItem,
+                    queue: .main
+                ) { _ in
+                    player.seek(to: .zero)
+                    player.play()
+                }
+            }
+            .edgesIgnoringSafeArea(.all)  // Ensure video fills the entire screen area
+            .onDisappear {
+                player.pause()
+                NotificationCenter.default.removeObserver(self)
+            }
     }
 }
 

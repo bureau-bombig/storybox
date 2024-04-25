@@ -11,7 +11,7 @@ import SwiftUI
 struct StoryboxApp: App {
     var body: some Scene {
         WindowGroup {
-            // WelcomeView()  // Assuming you've created a WelcomeView for the entry screen
+            WelcomeView()  // Assuming you've created a WelcomeView for the entry screen
         }
     }
 }
