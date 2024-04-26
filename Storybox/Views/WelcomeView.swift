@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct WelcomeView: View {
+    @EnvironmentObject var appState: AppState
     var body: some View {
         VStack(spacing: 20) {
             Text("Welcome to Storybox")
@@ -22,8 +23,7 @@ struct WelcomeView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                // Action for the Start button
-                print("Start button tapped")
+                appState.currentView = .introVideo
             }) {
                 Text("Start")
                     .font(.golosUI(size: 18))

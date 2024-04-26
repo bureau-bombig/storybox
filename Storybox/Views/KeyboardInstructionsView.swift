@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct KeyboardInstructionsView: View {
+    @EnvironmentObject var appState: AppState
     var body: some View {
         VStack(spacing: 20) {
             Text("Keyboard Operating Instructions")
@@ -30,7 +31,7 @@ struct KeyboardInstructionsView: View {
             .padding(.horizontal)
 
             Button("Alright") {
-                print("Proceed to next screen")
+                appState.currentView = .userDataInput
             }
             .font(.golosUI(size: 18))
             .foregroundColor(.white)

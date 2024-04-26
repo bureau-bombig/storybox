@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
-import AVKit  // Needed for handling video and camera feed
+import AVKit
 
 struct AnswerQuestionView: View {
+    @StateObject private var cameraSessionManager = CameraSessionManager()
     @State private var isRecording = false
+    @EnvironmentObject var appState: AppState
+   
+
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,12 +32,20 @@ struct AnswerQuestionView: View {
                             .background(Color.gray)  // Simulates video area
                             .cornerRadius(12)
                             .padding()
-
-                        CameraFeedView()  // Placeholder for the camera feed
-                            .frame(width: 150, height: 150 * (9 / 16))  // Smaller view with aspect ratio 16:9
-                            .border(Color.white, width: 2)  // Highlight the camera feed
+                        
+                        
+                        CameraPreview(session: cameraSessionManager.session)
+                            .frame(width: 150, height: 150 * (9 / 16))
+                            .border(Color.white, width: 2)
                             .padding(.trailing, 30)
                             .padding(.bottom, 30)
+                            .onAppear {
+                                    cameraSessionManager.startSession()
+                                }
+                            .onDisappear {
+                                    cameraSessionManager.stopSession()
+                                }
+                        
                     }
                     
                     if !isRecording {
@@ -43,12 +55,13 @@ struct AnswerQuestionView: View {
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.green))
                         
                         Button("Skip Questions") {
-                            // Handle skipping questions
+                            appState.currentView = .confirmAnswer
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.gray))
                     } else {
                         Button("Stop Recording") {
                             isRecording = false
+                            appState.currentView = .confirmAnswer
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.red))
                     }
@@ -90,16 +103,6 @@ struct QuestionVideoView: View {
     }
 }
 
-struct CameraFeedView: View {
-    var body: some View {
-        Rectangle()
-            .fill(Color.gray)  // Placeholder color for camera feed
-            .overlay(
-                Text("Camera Feed")
-                    .foregroundColor(.white)
-            )
-    }
-}
 #Preview {
     AnswerQuestionView()
 }

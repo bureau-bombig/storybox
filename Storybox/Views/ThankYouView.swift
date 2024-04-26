@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct ThankYouView: View {
+    @EnvironmentObject var appState: AppState
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -27,7 +28,7 @@ struct ThankYouView: View {
                         .padding()
 
                     Button("Start New") {
-                        // Logic to start the process over
+                        appState.currentView = .welcome
                     }
                     .foregroundColor(.white)
                     .padding()

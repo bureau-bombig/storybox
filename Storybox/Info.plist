@@ -7,5 +7,9 @@
 		<string>golos-ui_vf.woff2</string>
 		<string>Literata-VariableFont_wght.woff2</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>we need your microphone, pls</string>
+	<key>NSCameraUsageDescription</key>
+	<string>we need your camera, pls</string>
 </dict>
 </plist>

@@ -9,29 +9,40 @@ import SwiftUI
 import AVKit
 
 struct IntroVideoView: View {
-    @State private var player = AVPlayer(url: Bundle.main.url(forResource: "IntroVideo", withExtension: "mp4")!)
+    @EnvironmentObject var appState: AppState
+    private var player: AVPlayer?
+
+    init() {
+        // Initialize the video player with the URL of the video file
+        let videoURL = Bundle.main.url(forResource: "IntroVideo", withExtension: "mp4")!
+        player = AVPlayer(url: videoURL)
+    }
 
     var body: some View {
         VideoPlayer(player: player)
+            .overlay(Rectangle().foregroundColor(Color.black.opacity(0.001)).contentShape(Rectangle()))
             .onAppear {
-                player.play()
-                // Set up a loop for the video
+                player?.play()
                 NotificationCenter.default.addObserver(
                     forName: .AVPlayerItemDidPlayToEndTime,
-                    object: player.currentItem,
+                    object: player?.currentItem,
                     queue: .main
-                ) { _ in
-                    player.seek(to: .zero)
-                    player.play()
+                ) { [self] _ in
+                    // Move to the next view when the video finishes playing
+                    appState.currentView = .keyboardInstructions
                 }
             }
-            .edgesIgnoringSafeArea(.all)  // Ensure video fills the entire screen area
             .onDisappear {
-                player.pause()
+                // Pause the video and clean up when the view disappears
+                player?.pause()
                 NotificationCenter.default.removeObserver(self)
             }
+            .edgesIgnoringSafeArea(.all)  // Ensure video fills the entire screen area
     }
 }
+
+
+
 
 #Preview {
     IntroVideoView()

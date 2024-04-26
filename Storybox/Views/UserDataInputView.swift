@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct UserDataInputView: View {
+    @EnvironmentObject var appState: AppState
     @State private var nickname: String = ""
     @State private var email: String = ""
     @State private var realName: String = ""
     @State private var locality: String = ""
     @State private var termsAccepted: Bool = false
+    
 
     var body: some View {
         GeometryReader { geometry in
@@ -47,14 +49,12 @@ struct UserDataInputView: View {
 
                     HStack {
                         Button("Back") {
-                            // Action for the Back button
-                            print("Back button tapped")
+                            appState.currentView = .keyboardInstructions
                         }
                         .styledButton(textColor: .white, backgroundColor: Color.AppPrimaryDark)
 
                         Button("Confirm") {
-                            // Action for the Confirm button
-                            print("Confirm button tapped")
+                            appState.currentView = .chooseTopic
                         }
                         .styledButton(textColor: .white, backgroundColor: Color.AppSecondary)
                     }

@@ -24,6 +24,10 @@
 		CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596F22BD9CF0800656E03 /* AnswerQuestionView.swift */; };
 		CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596F42BD9D1EA00656E03 /* ConfirmAnswerView.swift */; };
 		CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596F62BD9D3DC00656E03 /* ThankYouView.swift */; };
+		CEA596F92BDAFF4000656E03 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596F82BDAFF4000656E03 /* AppState.swift */; };
+		CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FA2BDAFF7800656E03 /* ContentView.swift */; };
+		CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */; };
+		CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		CEA596F22BD9CF0800656E03 /* AnswerQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerQuestionView.swift; sourceTree = "<group>"; };
 		CEA596F42BD9D1EA00656E03 /* ConfirmAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAnswerView.swift; sourceTree = "<group>"; };
 		CEA596F62BD9D3DC00656E03 /* ThankYouView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouView.swift; sourceTree = "<group>"; };
+		CEA596F82BDAFF4000656E03 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		CEA596FA2BDAFF7800656E03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +86,16 @@
 		CEA596B72BD9687700656E03 /* Storybox */ = {
 			isa = PBXGroup;
 			children = (
-				CEA596DF2BD98A1900656E03 /* Info.plist */,
+				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
 				CEA596D22BD979B400656E03 /* Resources */,
 				CEA596C92BD973ED00656E03 /* Helpers */,
 				CEA596C82BD973DF00656E03 /* Controllers */,
 				CEA596C72BD973D200656E03 /* Models */,
 				CEA596C62BD973C600656E03 /* Views */,
 				CEA596B82BD9687700656E03 /* StoryboxApp.swift */,
-				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
+				CEA596F82BDAFF4000656E03 /* AppState.swift */,
+				CEA596FA2BDAFF7800656E03 /* ContentView.swift */,
+				CEA596DF2BD98A1900656E03 /* Info.plist */,
 				CEA596BE2BD9687800656E03 /* Preview Content */,
 			);
 			path = Storybox;
@@ -111,6 +121,7 @@
 				CEA596F22BD9CF0800656E03 /* AnswerQuestionView.swift */,
 				CEA596F42BD9D1EA00656E03 /* ConfirmAnswerView.swift */,
 				CEA596F62BD9D3DC00656E03 /* ThankYouView.swift */,
+				CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +136,7 @@
 		CEA596C82BD973DF00656E03 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -245,8 +257,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */,
 				CEA596E92BD9BA6F00656E03 /* KeyboardInstructionsView.swift in Sources */,
 				CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */,
+				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
@@ -255,6 +269,8 @@
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
 				CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */,
 				CEA596D62BD982EE00656E03 /* ColorPalette.swift in Sources */,
+				CEA596F92BDAFF4000656E03 /* AppState.swift in Sources */,
+				CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */,
 				CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */,
 				CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */,
 			);
@@ -397,6 +413,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +448,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

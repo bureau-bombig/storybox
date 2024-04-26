@@ -10,7 +10,8 @@ import AVKit
 
 struct ConfirmAnswerView: View {
     @State private var isPlaying = false  // State to toggle video playback
-
+    @EnvironmentObject var appState: AppState
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -42,12 +43,12 @@ struct ConfirmAnswerView: View {
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: isPlaying ? .red : .green))
                         
                         Button("Delete Recording") {
-                            // Logic for deletion
+                            appState.currentView = .answerQuestion
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: .red))
                         
                         Button("Submit Recording") {
-                            // Logic for submission
+                            appState.currentView = .thankYou
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: .blue))
                     }
