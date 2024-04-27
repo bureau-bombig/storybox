@@ -8,16 +8,17 @@
 import AVFoundation
 import SwiftUI
 
-class CameraSessionManager: ObservableObject {
+class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
     @Published var session = AVCaptureSession()
+    private var videoOutput = AVCaptureMovieFileOutput()
     var isConfigured = false
 
-    init() {
-        print("CameraSessionManager initialized.")
+    override init() {
+        super.init()
         setupCamera()
     }
 
-    func setupCamera() {
+    private func setupCamera() {
         DispatchQueue.global(qos: .userInitiated).async {
             if self.isConfigured {
                 print("CameraSessionManager: Session already configured.")
@@ -25,22 +26,23 @@ class CameraSessionManager: ObservableObject {
             }
 
             self.session.beginConfiguration()
-
-            // Specifically use the front camera
             guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
                   let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
-                  self.session.canAddInput(videoDeviceInput) else {
-                print("CameraSessionManager: Unable to initialize front camera.")
+                  self.session.canAddInput(videoDeviceInput),
+                  self.session.canAddOutput(self.videoOutput) else {
+                DispatchQueue.main.async {
+                    print("CameraSessionManager: Unable to initialize front camera or add output.")
+                }
                 self.session.commitConfiguration()
                 return
             }
 
             self.session.addInput(videoDeviceInput)
-            self.session.sessionPreset = .iFrame960x540  // Choose a session preset that is suitable for your needs
+            self.session.addOutput(self.videoOutput)
+            self.session.sessionPreset = .iFrame960x540
             self.session.commitConfiguration()
             self.isConfigured = true
 
-            // Start the session after configuration
             self.startSession()
         }
     }
@@ -49,17 +51,55 @@ class CameraSessionManager: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             if self.isConfigured && !self.session.isRunning {
                 self.session.startRunning()
-                print("CameraSessionManager: Session started.")
+                DispatchQueue.main.async {
+                    print("CameraSessionManager: Session started.")
+                }
             }
         }
     }
 
     func stopSession() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if self.session.isRunning {
+        if self.session.isRunning {
+            DispatchQueue.global(qos: .userInitiated).async {
                 self.session.stopRunning()
-                print("CameraSessionManager: Session stopped.")
+                DispatchQueue.main.async {
+                    print("CameraSessionManager: Session stopped.")
+                }
+            }
+        }
+    }
+
+    func startRecording() {
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileURL = tempDir.appendingPathComponent("tempMovie.mov")
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            try? FileManager.default.removeItem(at: fileURL)
+
+            // Start configuring the video output connection for recording
+            DispatchQueue.main.async {
+                if let connection = self.videoOutput.connection(with: .video), connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .landscapeRight  // Set to landscape mode
+                }
+
+                // Start recording after setting the orientation
+                self.videoOutput.startRecording(to: fileURL, recordingDelegate: self)
+            }
+        }
+    }
+    func stopRecording() {
+        videoOutput.stopRecording()
+    }
+
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        DispatchQueue.main.async {
+            if let error = error {
+                print("Error recording movie: \(error.localizedDescription)")
+            } else {
+                print("Recording finished successfully to \(outputFileURL)")
+                VideoURLManager.shared.outputFileLocation = outputFileURL
             }
         }
     }
 }
+

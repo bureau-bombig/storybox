@@ -9,16 +9,14 @@ import SwiftUI
 import AVKit
 
 struct AnswerQuestionView: View {
-    @StateObject private var cameraSessionManager = CameraSessionManager()
+    @ObservedObject private var cameraSessionManager = CameraSessionManager()
     @State private var isRecording = false
     @EnvironmentObject var appState: AppState
-   
 
-    
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Spacer()  // Ensures content is centered vertically
+                Spacer()
 
                 VStack(spacing: 20) {
                     Text("What does freedom mean to you?")
@@ -27,51 +25,47 @@ struct AnswerQuestionView: View {
                         .padding()
 
                     ZStack(alignment: .bottomTrailing) {
-                        QuestionVideoView()  // Placeholder for the question video
-                            .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))  // Aspect ratio 16:9
-                            .background(Color.gray)  // Simulates video area
+                        QuestionVideoView()
+                            .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))
+                            .background(Color.gray)
                             .cornerRadius(12)
                             .padding()
-                        
-                        
+
                         CameraPreview(session: cameraSessionManager.session)
                             .frame(width: 150, height: 150 * (9 / 16))
                             .border(Color.white, width: 2)
                             .padding(.trailing, 30)
                             .padding(.bottom, 30)
                             .onAppear {
-                                    cameraSessionManager.startSession()
-                                }
+                                cameraSessionManager.startSession()
+                            }
                             .onDisappear {
-                                    cameraSessionManager.stopSession()
-                                }
-                        
+                                cameraSessionManager.stopSession()
+                            }
                     }
-                    
+
                     if !isRecording {
                         Button("Start Recording") {
+                            cameraSessionManager.startRecording()
                             isRecording = true
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.green))
-                        
-                        Button("Skip Questions") {
-                            appState.currentView = .confirmAnswer
-                        }
-                        .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.gray))
                     } else {
                         Button("Stop Recording") {
+                            cameraSessionManager.stopRecording()
+                            cameraSessionManager.stopSession()
                             isRecording = false
                             appState.currentView = .confirmAnswer
                         }
                         .buttonStyle(PrimaryButtonStyle(backgroundColor: Color.red))
                     }
                 }
-                .background(Color.AppPrimary)  // Consistent background color
-                .padding(.horizontal, (geometry.size.width - geometry.size.width * 0.5) / 2)  // Center content horizontally
+                .background(Color.AppPrimary)
+                .padding(.horizontal, (geometry.size.width - geometry.size.width * 0.5) / 2)
 
-                Spacer()  // Balances the vertical alignment
+                Spacer()
             }
-            .background(Color.AppPrimary)  // Ensure the background color covers everything
+            .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
         }
     }

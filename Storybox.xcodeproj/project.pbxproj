@@ -28,6 +28,7 @@
 		CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FA2BDAFF7800656E03 /* ContentView.swift */; };
 		CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */; };
 		CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */; };
+		CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597082BDC780900656E03 /* VideoURLManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		CEA596FA2BDAFF7800656E03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionManager.swift; sourceTree = "<group>"; };
+		CEA597082BDC780900656E03 /* VideoURLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoURLManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				CEA596B82BD9687700656E03 /* StoryboxApp.swift */,
 				CEA596F82BDAFF4000656E03 /* AppState.swift */,
 				CEA596FA2BDAFF7800656E03 /* ContentView.swift */,
+				CEA597082BDC780900656E03 /* VideoURLManager.swift */,
 				CEA596DF2BD98A1900656E03 /* Info.plist */,
 				CEA596BE2BD9687800656E03 /* Preview Content */,
 			);
@@ -261,6 +264,7 @@
 				CEA596E92BD9BA6F00656E03 /* KeyboardInstructionsView.swift in Sources */,
 				CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */,
 				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
+				CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,

@@ -13,6 +13,7 @@ struct StoryboxApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(AppState())
+                .environmentObject(CameraSessionManager())
         }
     }
 }
