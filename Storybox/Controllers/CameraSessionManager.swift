@@ -19,33 +19,47 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
     }
 
     private func setupCamera() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if self.isConfigured {
-                print("CameraSessionManager: Session already configured.")
-                return
-            }
+           DispatchQueue.global(qos: .userInitiated).async {
+               if self.isConfigured {
+                   print("CameraSessionManager: Session already configured.")
+                   return
+               }
+4
+               self.session.beginConfiguration()
+               do {
+                   // Setup the video input
+                   guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
+                         let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
+                         self.session.canAddInput(videoDeviceInput) else {
+                       throw NSError(domain: "CameraSessionManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to initialize front camera or add output."])
+                   }
+                   self.session.addInput(videoDeviceInput)
 
-            self.session.beginConfiguration()
-            guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
-                  let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
-                  self.session.canAddInput(videoDeviceInput),
-                  self.session.canAddOutput(self.videoOutput) else {
-                DispatchQueue.main.async {
-                    print("CameraSessionManager: Unable to initialize front camera or add output.")
-                }
-                self.session.commitConfiguration()
-                return
-            }
+                   // Setup the audio input
+                   guard let audioDevice = AVCaptureDevice.default(for: .audio),
+                         let audioInput = try? AVCaptureDeviceInput(device: audioDevice),
+                         self.session.canAddInput(audioInput) else {
+                       throw NSError(domain: "CameraSessionManager", code: 2, userInfo: [NSLocalizedDescriptionKey: "Unable to access microphone or add audio input."])
+                   }
+                   self.session.addInput(audioInput)
 
-            self.session.addInput(videoDeviceInput)
-            self.session.addOutput(self.videoOutput)
-            self.session.sessionPreset = .iFrame960x540
-            self.session.commitConfiguration()
-            self.isConfigured = true
+                   // Add video output
+                   if self.session.canAddOutput(self.videoOutput) {
+                       self.session.addOutput(self.videoOutput)
+                   }
 
-            self.startSession()
-        }
-    }
+                   self.session.sessionPreset = .iFrame960x540
+                   self.session.commitConfiguration()
+                   self.isConfigured = true
+                   self.startSession()
+               } catch {
+                   DispatchQueue.main.async {
+                       print("Error setting up camera and audio inputs: \(error.localizedDescription)")
+                   }
+                   self.session.commitConfiguration()
+               }
+           }
+       }
 
     func startSession() {
         DispatchQueue.global(qos: .userInitiated).async {
