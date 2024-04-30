@@ -27,8 +27,8 @@ struct ThankYouView: View {
                         .multilineTextAlignment(.center)
                         .padding()
 
-                    Button("Start New") {
-                        appState.currentView = .welcome
+                    Button("Press space bar to start new") {
+                        self.nextAction()
                     }
                     .foregroundColor(.white)
                     .padding()
@@ -44,6 +44,47 @@ struct ThankYouView: View {
             }
             .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
+            .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
+        }
+    }
+    
+    private func nextAction() {
+        appState.currentView = .welcome
+    }
+
+    
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        var nextAction: () -> Void
+        
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            let controller = KeyboardViewController()
+            controller.nextAction = nextAction
+            return controller
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {
+            // Update logic if necessary
+        }
+    }
+}
+
+private class KeyboardViewController: UIViewController {
+    var nextAction: (() -> Void)?
+    
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    override func pressesBegan(_ presses: Set<UIPress>,
+                               with event: UIPressesEvent?) {
+        
+        for press in presses {
+            guard let key = press.key else { continue }
+            print("Key pressed: \(key)")
+            
+            if (key.keyCode.rawValue == 44) {
+                nextAction?()
+
+            }
         }
     }
 }

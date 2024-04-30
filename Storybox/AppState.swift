@@ -8,7 +8,7 @@
 import SwiftUI
 
 class AppState: ObservableObject {
-    @Published var currentView: AppView = .chooseTopic
+    @Published var currentView: AppView = .welcome
 }
 
 enum AppView {

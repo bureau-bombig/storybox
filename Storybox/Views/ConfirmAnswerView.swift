@@ -13,6 +13,8 @@ struct ConfirmAnswerView: View {
     @ObservedObject var videoURLManager = VideoURLManager.shared
     @State private var player: AVPlayer?
     @State private var isPlaying = false
+    @State private var focusedIndex: Int = 0  // 0 for Play, 1 for Delete, 2 for Submit
+
 
     var body: some View {
         GeometryReader { geometry in
@@ -31,14 +33,11 @@ struct ConfirmAnswerView: View {
                     .padding()
 
                 if let url = videoURLManager.outputFileLocation {
-                    VideoPlayer(player: player)
+                    CustomVideoPlayerView(url: url, player: $player)
                         .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))
                         .cornerRadius(12)
                         .shadow(radius: 5)
                         .padding()
-                        .onAppear {
-                            setupPlayer(url: url)
-                        }
                 } else {
                     Text("Waiting for recording to finish or no recording found")
                         .foregroundColor(.white)
@@ -51,9 +50,12 @@ struct ConfirmAnswerView: View {
             .frame(width: geometry.size.width)
             .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
+            .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [togglePlayback, deleteRecording, submitRecording]).frame(width: 0, height: 0, alignment: .center))
+
         }
     }
 
+    /*
     private func setupPlayer(url: URL) {
         let item = AVPlayerItem(url: url)
         player = AVPlayer(playerItem: item)
@@ -68,6 +70,7 @@ struct ConfirmAnswerView: View {
                 })
             }
     }
+     */
 
     @ViewBuilder
     private func controlButtons() -> some View {
@@ -75,22 +78,17 @@ struct ConfirmAnswerView: View {
             Button(isPlaying ? "Pause Recording" : "Play Recording") {
                 togglePlayback()
             }
-            .buttonStyle(PrimaryButtonStyle(backgroundColor: .green))
+            .buttonStyle(focused: focusedIndex == 0)
 
             Button("Delete Recording") {
-                appState.currentView = .answerQuestion
-                player?.pause()
-                player = nil
-                videoURLManager.outputFileLocation = nil
+                deleteRecording()
             }
-            .buttonStyle(PrimaryButtonStyle(backgroundColor: .red))
+            .buttonStyle(focused: focusedIndex == 1)
             
             Button("Submit Recording") {
-                appState.currentView = .thankYou
-                player?.pause()
-                player = nil
+                submitRecording()
             }
-            .buttonStyle(PrimaryButtonStyle(backgroundColor: .blue))
+            .buttonStyle(focused: focusedIndex == 2)
         }
     }
 
@@ -105,6 +103,71 @@ struct ConfirmAnswerView: View {
             }
             player.play()
             isPlaying = true
+        }
+    }
+    
+    private func deleteRecording() {
+        appState.currentView = .answerQuestion
+        player?.pause()
+        player = nil
+        videoURLManager.outputFileLocation = nil
+    }
+
+    private func submitRecording() {
+        appState.currentView = .thankYou
+        player?.pause()
+        player = nil
+    }
+
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        @Binding var focusedIndex: Int
+        var actionHandlers: [() -> Void]
+
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            let controller = KeyboardViewController(focusedIndex: $focusedIndex, actionHandlers: actionHandlers)
+            return controller
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {
+            // Update logic if necessary, for example, when actionHandlers change
+        }
+    }
+}
+
+private class KeyboardViewController: UIViewController {
+    var focusedIndex: Binding<Int>!
+    var actionHandlers: [() -> Void]!
+
+    // Custom initializer that accepts focusedIndex and actionHandlers
+    init(focusedIndex: Binding<Int>, actionHandlers: [() -> Void]) {
+        self.focusedIndex = focusedIndex
+        self.actionHandlers = actionHandlers
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        super.pressesBegan(presses, with: event)
+        for press in presses {
+            guard let key = press.key else { continue }
+            
+            switch key.keyCode.rawValue {
+            case (80): // left arrow key
+                if focusedIndex.wrappedValue > 0 {
+                    focusedIndex.wrappedValue -= 1
+                }
+            case (79): // right arrow key
+                if focusedIndex.wrappedValue < actionHandlers.count - 1 {
+                    focusedIndex.wrappedValue += 1
+                }
+            case (44): // space bar
+                actionHandlers[focusedIndex.wrappedValue]()
+            default:
+                break
+            }
         }
     }
 }

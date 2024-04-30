@@ -17,7 +17,6 @@
 		CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596E02BD990FC00656E03 /* WelcomeView.swift */; };
 		CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596E32BD9979600656E03 /* IntroVideoView.swift */; };
 		CEA596E72BD9B7E700656E03 /* IntroVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CEA596E62BD9B7E700656E03 /* IntroVideo.mp4 */; };
-		CEA596E92BD9BA6F00656E03 /* KeyboardInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596E82BD9BA6F00656E03 /* KeyboardInstructionsView.swift */; };
 		CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596EA2BD9BC7D00656E03 /* UserDataInputView.swift */; };
 		CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596EE2BD9C59B00656E03 /* ChooseTopicView.swift */; };
 		CEA596F12BD9C86F00656E03 /* CameraSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596F02BD9C86F00656E03 /* CameraSettingsView.swift */; };
@@ -29,6 +28,9 @@
 		CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */; };
 		CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */; };
 		CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597082BDC780900656E03 /* VideoURLManager.swift */; };
+		CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */; };
+		CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */; };
+		CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +46,6 @@
 		CEA596E02BD990FC00656E03 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		CEA596E32BD9979600656E03 /* IntroVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVideoView.swift; sourceTree = "<group>"; };
 		CEA596E62BD9B7E700656E03 /* IntroVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IntroVideo.mp4; sourceTree = "<group>"; };
-		CEA596E82BD9BA6F00656E03 /* KeyboardInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInstructionsView.swift; sourceTree = "<group>"; };
 		CEA596EA2BD9BC7D00656E03 /* UserDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataInputView.swift; sourceTree = "<group>"; };
 		CEA596EE2BD9C59B00656E03 /* ChooseTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTopicView.swift; sourceTree = "<group>"; };
 		CEA596F02BD9C86F00656E03 /* CameraSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsView.swift; sourceTree = "<group>"; };
@@ -56,6 +57,9 @@
 		CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionManager.swift; sourceTree = "<group>"; };
 		CEA597082BDC780900656E03 /* VideoURLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoURLManager.swift; sourceTree = "<group>"; };
+		CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstructionsView.swift; sourceTree = "<group>"; };
+		CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAccessoryTextField.swift; sourceTree = "<group>"; };
+		CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,16 +119,16 @@
 		CEA596C62BD973C600656E03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEA597142BDECFD800656E03 /* ViewParts */,
 				CEA596E02BD990FC00656E03 /* WelcomeView.swift */,
 				CEA596E32BD9979600656E03 /* IntroVideoView.swift */,
-				CEA596E82BD9BA6F00656E03 /* KeyboardInstructionsView.swift */,
+				CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */,
 				CEA596EA2BD9BC7D00656E03 /* UserDataInputView.swift */,
 				CEA596EE2BD9C59B00656E03 /* ChooseTopicView.swift */,
 				CEA596F02BD9C86F00656E03 /* CameraSettingsView.swift */,
 				CEA596F22BD9CF0800656E03 /* AnswerQuestionView.swift */,
 				CEA596F42BD9D1EA00656E03 /* ConfirmAnswerView.swift */,
 				CEA596F62BD9D3DC00656E03 /* ThankYouView.swift */,
-				CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +189,16 @@
 				CEA596D12BD979B400656E03 /* Styles */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CEA597142BDECFD800656E03 /* ViewParts */ = {
+			isa = PBXGroup;
+			children = (
+				CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */,
+				CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */,
+				CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */,
+			);
+			path = ViewParts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,14 +275,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */,
-				CEA596E92BD9BA6F00656E03 /* KeyboardInstructionsView.swift in Sources */,
 				CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */,
 				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
 				CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
+				CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */,
+				CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */,
 				CEA596F12BD9C86F00656E03 /* CameraSettingsView.swift in Sources */,
+				CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */,
 				CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */,
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
 				CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */,
@@ -407,10 +423,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -420,6 +438,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,6 +446,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -442,10 +463,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -455,6 +478,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,6 +486,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -14,6 +14,7 @@ struct UserDataInputView: View {
     @State private var realName: String = ""
     @State private var locality: String = ""
     @State private var termsAccepted: Bool = false
+    @State private var focusedIndex: Int = 0
     
 
     var body: some View {
@@ -49,25 +50,81 @@ struct UserDataInputView: View {
 
                     HStack {
                         Button("Back") {
-                            appState.currentView = .keyboardInstructions
+                            self.backAction()
                         }
-                        .styledButton(textColor: .white, backgroundColor: Color.AppPrimaryDark)
+                        .styledButton(textColor:Color.AppPrimaryDark , backgroundColor: .white, focused: focusedIndex == 0)
 
                         Button("Confirm") {
-                            appState.currentView = .chooseTopic
+                            self.nextAction()
                         }
-                        .styledButton(textColor: .white, backgroundColor: Color.AppSecondary)
+                        .styledButton(textColor: Color.AppPrimaryDark, backgroundColor: .white, focused: focusedIndex == 1)
                     }
                     .padding(.bottom, 40)
                     
                     Spacer();
                 }
-                .frame(minWidth: geometry.size.width) // Ensure content width matches GeometryReader's width
+                .frame(minWidth: geometry.size.width)
             }
-            .frame(width: geometry.size.width) // Set ScrollView's width to GeometryReader's width
+            .frame(width: geometry.size.width)
         }
-        .background(Color.AppPrimary) // Set the background on the GeometryReader
-        .edgesIgnoringSafeArea(.all) // Ensure it covers the entire screen area, including edges
+        .background(Color.AppPrimary)
+        .edgesIgnoringSafeArea(.all)
+        .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [self.backAction, self.nextAction]).frame(width: 0, height: 0, alignment: .center))
+    }
+    
+    private func nextAction() {
+        appState.currentView = .chooseTopic
+    }
+    
+    private func backAction() {
+        appState.currentView = .keyboardInstructions
+    }
+
+    
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        @Binding var focusedIndex: Int
+        var actionHandlers: [() -> Void]
+
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            let controller = KeyboardViewController()
+            controller.focusedIndex = $focusedIndex
+            controller.actionHandlers = actionHandlers
+            return controller
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {}
+    }
+}
+
+private class KeyboardViewController: UIViewController {
+    var focusedIndex: Binding<Int>!
+    var actionHandlers: [() -> Void]!
+    
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    override func pressesBegan(_ presses: Set<UIPress>,
+                               with event: UIPressesEvent?) {
+        
+        for press in presses {
+            guard let key = press.key else { continue }
+            print("Key pressed: \(key)")
+            
+            switch key.keyCode.rawValue {
+            case (80): // left arrow key
+                if focusedIndex.wrappedValue > 0 {
+                    focusedIndex.wrappedValue -= 1
+                }
+            case (79): // right arrow key
+                if focusedIndex.wrappedValue < actionHandlers.count - 1 {
+                    focusedIndex.wrappedValue += 1
+                }
+            case (44): // space bar
+                actionHandlers[focusedIndex.wrappedValue]()
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -82,17 +139,18 @@ struct LabelledTextField: View {
             Text(label)
                 .font(.literata(size: 18))
                 .foregroundColor(.white)
-            TextField(placeholder, text: $text)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .foregroundColor(.white)
+            CustomTextField(placeholder: placeholder, text: $text)
+                .frame(height: 44)
                 .padding(.horizontal)
                 .frame(width: 500)
         }
     }
 }
 
+
+
 extension Button {
-    func styledButton(textColor: Color, backgroundColor: Color) -> some View {
+    func styledButton(textColor: Color, backgroundColor: Color, focused: Bool) -> some View {
         self.font(.golosUI(size: 18))
             .foregroundColor(textColor)
             .padding()
@@ -100,8 +158,24 @@ extension Button {
             .cornerRadius(8)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.AppPrimaryDark, lineWidth: 2)
+                    .stroke(focused ? Color.AppSecondary : Color.AppPrimaryDark, lineWidth: focused ? 5 : 2)
             )
+    }
+}
+
+struct CustomTextField: UIViewRepresentable {
+    var placeholder: String
+    @Binding var text: String
+
+    func makeUIView(context: Context) -> NoAccessoryTextField {
+        let textField = NoAccessoryTextField()
+        textField.placeholder = placeholder
+        textField.borderStyle = .roundedRect
+        return textField
+    }
+
+    func updateUIView(_ uiView: NoAccessoryTextField, context: Context) {
+        uiView.text = text
     }
 }
 

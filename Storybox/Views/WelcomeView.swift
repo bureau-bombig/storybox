@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct WelcomeView: View {
     @EnvironmentObject var appState: AppState
     var body: some View {
@@ -23,9 +22,9 @@ struct WelcomeView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                appState.currentView = .introVideo
+                self.nextAction()
             }) {
-                Text("Start")
+                Text("Press space to Start")
                     .font(.golosUI(size: 18))
                     .foregroundColor(.white)  // Set button text color to white
                     .padding(.vertical, 10)
@@ -42,6 +41,47 @@ struct WelcomeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.AppPrimary)  // Use Primary color for background
         .edgesIgnoringSafeArea(.all)
+        .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
+    }
+    
+    private func nextAction() {
+        appState.currentView = .keyboardInstructions
+    }
+
+    
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        var nextAction: () -> Void
+        
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            let controller = KeyboardViewController()
+            controller.nextAction = nextAction
+            return controller
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {
+            // Update logic if necessary
+        }
+    }
+}
+
+private class KeyboardViewController: UIViewController {
+    var nextAction: (() -> Void)?
+    
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    override func pressesBegan(_ presses: Set<UIPress>,
+                               with event: UIPressesEvent?) {
+        
+        for press in presses {
+            guard let key = press.key else { continue }
+            print("Key pressed: \(key)")
+            
+            if (key.keyCode.rawValue == 44) {
+                nextAction?()
+
+            }
+        }
     }
 }
 

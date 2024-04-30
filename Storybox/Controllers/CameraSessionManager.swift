@@ -24,7 +24,7 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
                    print("CameraSessionManager: Session already configured.")
                    return
                }
-4
+
                self.session.beginConfiguration()
                do {
                    // Setup the video input
@@ -86,7 +86,7 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
     func startRecording() {
         let tempDir = FileManager.default.temporaryDirectory
         let fileURL = tempDir.appendingPathComponent("tempMovie.mov")
-        
+        print("Initializing recording...")
         DispatchQueue.global(qos: .userInitiated).async {
             try? FileManager.default.removeItem(at: fileURL)
 
@@ -95,7 +95,7 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
                 if let connection = self.videoOutput.connection(with: .video), connection.isVideoOrientationSupported {
                     connection.videoOrientation = .landscapeRight  // Set to landscape mode
                 }
-
+                print("Attempting to start recording...")
                 // Start recording after setting the orientation
                 self.videoOutput.startRecording(to: fileURL, recordingDelegate: self)
             }
@@ -106,6 +106,7 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
     }
 
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        print("Attempting to save recording...")
         DispatchQueue.main.async {
             if let error = error {
                 print("Error recording movie: \(error.localizedDescription)")

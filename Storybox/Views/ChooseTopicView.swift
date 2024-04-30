@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChooseTopicView: View {
     @EnvironmentObject var appState: AppState  // Ensuring we can trigger navigation
+    @State private var focusedIndex: Int? = 0
 
     struct Topic: Identifiable {
         let id = UUID()
@@ -41,10 +42,10 @@ struct ChooseTopicView: View {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(topics) { topic in
-                            TopicCard(topic: topic)
+                        ForEach(topics.indices, id: \.self) { index in
+                            TopicCard(topic: topics[index], isFocused: focusedIndex == index)
                                 .onTapGesture {
-                                    appState.currentView = .cameraSettings  // Assuming this is the next view
+                                    nextView()  // Action when tapping or selecting with space
                                 }
                         }
                     }
@@ -58,11 +59,81 @@ struct ChooseTopicView: View {
             .background(Color.AppPrimary)
         }
         .edgesIgnoringSafeArea(.all)
+        .background(KeyboardResponder(focusedIndex: $focusedIndex, topicsCount: topics.count, action: nextView).frame(width: 0, height: 0))
+    }
+    
+    private func nextView() {
+        // Here you might save the selected topic for later processing
+        // Comment: Save selected topic here later
+        appState.currentView = .cameraSettings
+    }
+    
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        @Binding var focusedIndex: Int?
+        let topicsCount: Int
+        var action: () -> Void
+        
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            return KeyboardViewController(focusedIndex: $focusedIndex, topicsCount: topicsCount, action: action)
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {}
+    }
+
+}
+
+private class KeyboardViewController: UIViewController {
+    var focusedIndex: Binding<Int?>!
+    var topicsCount: Int!
+    var action: () -> Void
+    
+    // Custom initializer to set up the required properties
+    init(focusedIndex: Binding<Int?>, topicsCount: Int, action: @escaping () -> Void) {
+        self.focusedIndex = focusedIndex
+        self.topicsCount = topicsCount
+        self.action = action
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>,
+                               with event: UIPressesEvent?) {
+        
+        for press in presses {
+            guard let key = press.key else { continue }
+            print("Key pressed: \(key)")
+            
+            switch key.keyCode.rawValue {
+            case (80): // left arrow key
+                if let index = focusedIndex.wrappedValue, index > 0 {
+                    focusedIndex.wrappedValue = index - 1
+                }
+            case (79): // right arrow key
+                if let index = focusedIndex.wrappedValue, index < topicsCount - 1 {
+                    focusedIndex.wrappedValue = index + 1
+                }
+            case (44): // space bar
+                if focusedIndex.wrappedValue != nil {
+                    action()  // Trigger the action associated with the selected topic
+                }
+            default:
+                break
+            }
+        }
     }
 }
 
 struct TopicCard: View {
     let topic: ChooseTopicView.Topic
+    var isFocused: Bool
 
     var body: some View {
         VStack {
@@ -92,7 +163,7 @@ struct TopicCard: View {
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.white, lineWidth: 2)
+                .stroke(isFocused ? Color.AppSecondary : Color.white, lineWidth: isFocused ? 5 : 2) // Focus indication
         )
         .shadow(radius: 5)
         .frame(width: 250)

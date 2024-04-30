@@ -12,6 +12,7 @@ struct CameraSettingsView: View {
     @StateObject private var cameraSessionManager = CameraSessionManager()
     @State private var isAudioOnly = false
     @EnvironmentObject var appState: AppState
+    @State private var focusedIndex: Int = 0
 
     var body: some View {
         GeometryReader { geometry in
@@ -49,14 +50,14 @@ struct CameraSettingsView: View {
 
                 HStack {
                     Button("Back") {
-                        appState.currentView = .chooseTopic
+                        self.backAction()
                     }
-                    .buttonStyle()
+                    .buttonStyle(focused: focusedIndex == 0)
 
                     Button("Confirm") {
-                        appState.currentView = .answerQuestion
+                        self.nextAction()
                     }
-                    .buttonStyle()
+                    .buttonStyle(focused: focusedIndex == 1)
                 }
                 .padding(.bottom)
 
@@ -66,17 +67,77 @@ struct CameraSettingsView: View {
             .padding(.horizontal, (geometry.size.width - geometry.size.width * 0.5) / 2)
             .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
+            .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [self.backAction, self.nextAction]).frame(width: 0, height: 0, alignment: .center))
+        }
+    }
+    private func nextAction() {
+        appState.currentView = .answerQuestion
+    }
+    
+    private func backAction() {
+        appState.currentView = .chooseTopic
+    }
+
+    
+    private struct KeyboardResponder: UIViewControllerRepresentable {
+        @Binding var focusedIndex: Int
+        var actionHandlers: [() -> Void]
+
+        internal func makeUIViewController(context: Context) -> KeyboardViewController {
+            let controller = KeyboardViewController()
+            controller.focusedIndex = $focusedIndex
+            controller.actionHandlers = actionHandlers
+            return controller
+        }
+
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {}
+    }
+}
+
+private class KeyboardViewController: UIViewController {
+    var focusedIndex: Binding<Int>!
+    var actionHandlers: [() -> Void]!
+    
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    override func pressesBegan(_ presses: Set<UIPress>,
+                               with event: UIPressesEvent?) {
+        
+        for press in presses {
+            guard let key = press.key else { continue }
+            print("Key pressed: \(key)")
+            
+            switch key.keyCode.rawValue {
+            case (80): // left arrow key
+                if focusedIndex.wrappedValue > 0 {
+                    focusedIndex.wrappedValue -= 1
+                }
+            case (79): // right arrow key
+                if focusedIndex.wrappedValue < actionHandlers.count - 1 {
+                    focusedIndex.wrappedValue += 1
+                }
+            case (44): // space bar
+                actionHandlers[focusedIndex.wrappedValue]()
+            default:
+                break
+            }
         }
     }
 }
 
+
 extension Button {
-    func buttonStyle() -> some View {
+    func buttonStyle(focused: Bool) -> some View {
         self.font(.golosUI(size: 18))
-            .foregroundColor(.white)
+            .foregroundColor(Color.AppPrimary)
             .padding()
-            .background(Color.AppPrimaryDark)
+            .background(.white)
             .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(focused ? Color.AppSecondary : Color.AppPrimaryDark, lineWidth: focused ? 5 : 2)
+            )
     }
 }
 
