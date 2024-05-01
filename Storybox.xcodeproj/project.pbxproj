@@ -11,8 +11,6 @@
 		CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BC2BD9687800656E03 /* Assets.xcassets */; };
 		CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BF2BD9687800656E03 /* Preview Assets.xcassets */; };
 		CEA596D62BD982EE00656E03 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596D52BD982EE00656E03 /* ColorPalette.swift */; };
-		CEA596D92BD9864600656E03 /* golos-ui_vf.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CEA596D72BD9864600656E03 /* golos-ui_vf.woff2 */; };
-		CEA596DA2BD9864600656E03 /* Literata-VariableFont_wght.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CEA596D82BD9864600656E03 /* Literata-VariableFont_wght.woff2 */; };
 		CEA596DC2BD9868200656E03 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596DB2BD9868200656E03 /* Typography.swift */; };
 		CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596E02BD990FC00656E03 /* WelcomeView.swift */; };
 		CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596E32BD9979600656E03 /* IntroVideoView.swift */; };
@@ -31,6 +29,12 @@
 		CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */; };
 		CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */; };
 		CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */; };
+		CEA5971C2BE1B3E300656E03 /* AdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5971B2BE1B3E300656E03 /* AdminSettings.swift */; };
+		CEA5971E2BE1B41600656E03 /* AdminUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5971D2BE1B41600656E03 /* AdminUpload.swift */; };
+		CEA597202BE1BA8600656E03 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5971F2BE1BA8600656E03 /* PrimaryButton.swift */; };
+		CEA597272BE1CBB100656E03 /* golos-ui_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA597252BE1C77100656E03 /* golos-ui_bold.ttf */; };
+		CEA597282BE1CBB600656E03 /* golos-ui_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA597262BE1C78D00656E03 /* golos-ui_regular.ttf */; };
+		CEA5972C2BE1E8C100656E03 /* Literata_36pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA5972B2BE1E8AD00656E03 /* Literata_36pt-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +43,6 @@
 		CEA596BC2BD9687800656E03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA596BF2BD9687800656E03 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEA596D52BD982EE00656E03 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
-		CEA596D72BD9864600656E03 /* golos-ui_vf.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "golos-ui_vf.woff2"; sourceTree = "<group>"; };
-		CEA596D82BD9864600656E03 /* Literata-VariableFont_wght.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Literata-VariableFont_wght.woff2"; sourceTree = "<group>"; };
 		CEA596DB2BD9868200656E03 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		CEA596DF2BD98A1900656E03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CEA596E02BD990FC00656E03 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,12 @@
 		CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstructionsView.swift; sourceTree = "<group>"; };
 		CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAccessoryTextField.swift; sourceTree = "<group>"; };
 		CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
+		CEA5971B2BE1B3E300656E03 /* AdminSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettings.swift; sourceTree = "<group>"; };
+		CEA5971D2BE1B41600656E03 /* AdminUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUpload.swift; sourceTree = "<group>"; };
+		CEA5971F2BE1BA8600656E03 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		CEA597252BE1C77100656E03 /* golos-ui_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "golos-ui_bold.ttf"; sourceTree = "<group>"; };
+		CEA597262BE1C78D00656E03 /* golos-ui_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "golos-ui_regular.ttf"; sourceTree = "<group>"; };
+		CEA5972B2BE1E8AD00656E03 /* Literata_36pt-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Literata_36pt-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +137,8 @@
 				CEA596F22BD9CF0800656E03 /* AnswerQuestionView.swift */,
 				CEA596F42BD9D1EA00656E03 /* ConfirmAnswerView.swift */,
 				CEA596F62BD9D3DC00656E03 /* ThankYouView.swift */,
+				CEA5971B2BE1B3E300656E03 /* AdminSettings.swift */,
+				CEA5971D2BE1B41600656E03 /* AdminUpload.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -158,8 +168,9 @@
 		CEA596CF2BD979B400656E03 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				CEA596D72BD9864600656E03 /* golos-ui_vf.woff2 */,
-				CEA596D82BD9864600656E03 /* Literata-VariableFont_wght.woff2 */,
+				CEA5972B2BE1E8AD00656E03 /* Literata_36pt-Medium.ttf */,
+				CEA597252BE1C77100656E03 /* golos-ui_bold.ttf */,
+				CEA597262BE1C78D00656E03 /* golos-ui_regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -197,6 +208,7 @@
 				CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */,
 				CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */,
 				CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */,
+				CEA5971F2BE1BA8600656E03 /* PrimaryButton.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -259,11 +271,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA5972C2BE1E8C100656E03 /* Literata_36pt-Medium.ttf in Resources */,
+				CEA597282BE1CBB600656E03 /* golos-ui_regular.ttf in Resources */,
+				CEA597272BE1CBB100656E03 /* golos-ui_bold.ttf in Resources */,
 				CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */,
 				CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */,
-				CEA596DA2BD9864600656E03 /* Literata-VariableFont_wght.woff2 in Resources */,
 				CEA596E72BD9B7E700656E03 /* IntroVideo.mp4 in Resources */,
-				CEA596D92BD9864600656E03 /* golos-ui_vf.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +291,7 @@
 				CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */,
 				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
 				CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */,
+				CEA5971C2BE1B3E300656E03 /* AdminSettings.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
@@ -285,12 +299,14 @@
 				CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */,
 				CEA596F12BD9C86F00656E03 /* CameraSettingsView.swift in Sources */,
 				CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */,
+				CEA597202BE1BA8600656E03 /* PrimaryButton.swift in Sources */,
 				CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */,
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
 				CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */,
 				CEA596D62BD982EE00656E03 /* ColorPalette.swift in Sources */,
 				CEA596F92BDAFF4000656E03 /* AppState.swift in Sources */,
 				CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */,
+				CEA5971E2BE1B41600656E03 /* AdminUpload.swift in Sources */,
 				CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */,
 				CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */,
 			);
@@ -423,12 +439,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -447,7 +462,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -463,12 +477,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -487,7 +500,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

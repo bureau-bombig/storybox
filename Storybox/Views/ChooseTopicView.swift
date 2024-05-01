@@ -30,7 +30,7 @@ struct ChooseTopicView: View {
             VStack {
                 Spacer()
                 Text("Choose a Topic")
-                    .font(.golosUI(size: 42))
+                    .font(.golosUIRegular(size: 42))
                     .foregroundColor(.white)
                     .padding(.horizontal)
 
@@ -149,7 +149,7 @@ struct TopicCard: View {
                 )
 
             Text(topic.title)
-                .font(.golosUI(size: 24))
+                .font(.golosUIRegular(size: 24))
                 .foregroundColor(.white)
                 .padding(.top)
 

@@ -23,7 +23,7 @@ struct UserDataInputView: View {
                 VStack(spacing: 20) {
                     Spacer();
                     Text("User Data Input")
-                        .font(.golosUI(size: 42))
+                        .font(.golosUIRegular(size: 42))
                         .foregroundColor(.white)
                         .padding(.top, 40)
 
@@ -144,22 +144,6 @@ struct LabelledTextField: View {
                 .padding(.horizontal)
                 .frame(width: 500)
         }
-    }
-}
-
-
-
-extension Button {
-    func styledButton(textColor: Color, backgroundColor: Color, focused: Bool) -> some View {
-        self.font(.golosUI(size: 18))
-            .foregroundColor(textColor)
-            .padding()
-            .background(backgroundColor)
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(focused ? Color.AppSecondary : Color.AppPrimaryDark, lineWidth: focused ? 5 : 2)
-            )
     }
 }
 

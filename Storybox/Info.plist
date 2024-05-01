@@ -4,8 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>golos-ui_vf.woff2</string>
-		<string>Literata-VariableFont_wght.woff2</string>
+		<string>golos-ui_regular.ttf</string>
+		<string>golos-ui_bold.ttf</string>
+		<string>Literata_36pt-Medium.ttf</string>
 	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>we need your microphone, pls</string>

@@ -12,7 +12,7 @@ struct KeyboardInstructionsView: View {
     var body: some View {
         VStack(spacing: 20) {
             Text("Keyboard Operating Instructions")
-                .font(.golosUI(size: 42))
+                .font(.golosUIRegular(size: 42))
                 .foregroundColor(.white)
                 .padding(.horizontal)
                 .multilineTextAlignment(.center)
@@ -29,19 +29,11 @@ struct KeyboardInstructionsView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
-
+            
             Button("Alright") {
                 self.nextAction()
             }
-            .font(.golosUI(size: 18))
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.AppPrimaryDark)
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.AppSecondary, lineWidth: 2)
-            )
+            .styledButton()
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

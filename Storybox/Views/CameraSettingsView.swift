@@ -20,7 +20,7 @@ struct CameraSettingsView: View {
                 Spacer()
 
                 Text("Adjust Camera Settings")
-                    .font(.golosUI(size: 42))
+                    .font(.golosUIRegular(size: 42))
                     .foregroundColor(.white)
                     .padding()
 
@@ -52,12 +52,12 @@ struct CameraSettingsView: View {
                     Button("Back") {
                         self.backAction()
                     }
-                    .buttonStyle(focused: focusedIndex == 0)
+                    .styledButton(focused: focusedIndex == 0)
 
                     Button("Confirm") {
                         self.nextAction()
                     }
-                    .buttonStyle(focused: focusedIndex == 1)
+                    .styledButton(focused: focusedIndex == 1)
                 }
                 .padding(.bottom)
 
@@ -125,22 +125,6 @@ private class KeyboardViewController: UIViewController {
         }
     }
 }
-
-
-extension Button {
-    func buttonStyle(focused: Bool) -> some View {
-        self.font(.golosUI(size: 18))
-            .foregroundColor(Color.AppPrimary)
-            .padding()
-            .background(.white)
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(focused ? Color.AppSecondary : Color.AppPrimaryDark, lineWidth: focused ? 5 : 2)
-            )
-    }
-}
-
 
 #Preview {
     CameraSettingsView()

@@ -36,11 +36,9 @@ struct ContentView: View {
         case .thankYou:
             ThankYouView()
         case .adminSettings:
-            // AdminSettingsView()
-            Text("This view is under construction")
+            AdminSettings()
         case .adminUpload:
-            Text("This view is under construction")
-            // AdminUploadView()
+            AdminUpload()
         }
     }
 }

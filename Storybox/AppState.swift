@@ -12,6 +12,5 @@ class AppState: ObservableObject {
 }
 
 enum AppView {
-    case welcome, introVideo, keyboardInstructions, userDataInput, chooseTopic, cameraSettings, answerQuestion, confirmAnswer, thankYou
-    case adminSettings, adminUpload
+    case welcome, introVideo, keyboardInstructions, userDataInput, chooseTopic, cameraSettings, answerQuestion, confirmAnswer, thankYou, adminSettings, adminUpload
 }

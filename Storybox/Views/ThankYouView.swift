@@ -17,7 +17,7 @@ struct ThankYouView: View {
 
                 VStack(spacing: 20) {
                     Text("Thank You!")
-                        .font(.golosUI(size: 42))
+                        .font(.golosUIRegular(size: 42))
                         .foregroundColor(.white)
                         .padding()
 
@@ -30,11 +30,7 @@ struct ThankYouView: View {
                     Button("Press space bar to start new") {
                         self.nextAction()
                     }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.AppSecondary)
-                    .cornerRadius(10)
-                    .padding()
+                    .styledButton()
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.AppPrimary)

@@ -20,7 +20,7 @@ struct AnswerQuestionView: View {
 
                 VStack(spacing: 20) {
                     Text("What does freedom mean to you?")
-                        .font(.golosUI(size: 42))
+                        .font(.golosUIRegular(size: 42))
                         .foregroundColor(.white)
                         .padding()
 
@@ -47,7 +47,7 @@ struct AnswerQuestionView: View {
                     Button(isRecording ? "Press space to stop Recording" : "Press space to start recording") {
                         toggleRecording()
                     }
-                    .buttonStyle(focused: true)
+                    .styledButton(focused: true)
                 }
                 .background(Color.AppPrimary)
                 .padding(.horizontal, (geometry.size.width - geometry.size.width * 0.5) / 2)

@@ -22,7 +22,7 @@ struct ConfirmAnswerView: View {
                 Spacer()
 
                 Text("Review Your Answer")
-                    .font(.golosUI(size: 42))
+                    //.font(.golosUIRegular(size: 42))
                     .foregroundColor(.white)
                     .padding()
 
@@ -78,17 +78,17 @@ struct ConfirmAnswerView: View {
             Button(isPlaying ? "Pause Recording" : "Play Recording") {
                 togglePlayback()
             }
-            .buttonStyle(focused: focusedIndex == 0)
+            .styledButton(focused: focusedIndex == 0)
 
             Button("Delete Recording") {
                 deleteRecording()
             }
-            .buttonStyle(focused: focusedIndex == 1)
+            .styledButton(focused: focusedIndex == 1)
             
             Button("Submit Recording") {
                 submitRecording()
             }
-            .buttonStyle(focused: focusedIndex == 2)
+            .styledButton(focused: focusedIndex == 2)
         }
     }
 

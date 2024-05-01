@@ -9,43 +9,97 @@ import SwiftUI
 
 struct WelcomeView: View {
     @EnvironmentObject var appState: AppState
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Welcome to Storybox")
-                .font(.golosUI(size: 42))
-                .foregroundColor(.white)  // Set text color to white
+        ZStack {
+            Image("welcome-background") // Ensure this image is in your asset catalog
+                .resizable()
+                .scaledToFill()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+             
             
-            Text("Explore the power of storytelling and share your unique perspectives.")
-                .font(.golosUI(size: 16))
-                .foregroundColor(.white)  // Set text color to white
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
-            Button(action: {
-                self.nextAction()
-            }) {
-                Text("Press space to Start")
-                    .font(.golosUI(size: 18))
-                    .foregroundColor(.white)  // Set button text color to white
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 50)
-                    .background(Color.AppPrimaryDark)  // Use PrimaryDark for button background
-                    .cornerRadius(8)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.AppSecondary, lineWidth: 2)
-                    )
+            VStack() {
+                HStack {
+                    VStack(alignment: .leading) {
+                        
+                            Text("Willkommen in der Erzählbox des")
+                                .font(.golosUIBold(size: 65))
+                                .foregroundColor(.white)
+                                .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .leading)
+                                
+                            Text("Freiheitsarchiv")
+                                .font(.literata(size: 65))
+                                .foregroundColor(.white)
+                                .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .leading)
+                                .padding(.bottom, 20)
+                            
+                            Text("Ein Projekt der Universität Hamburg und freien Künstler:innen und Theatermacher:innen")
+                                .font(.golosUIRegular(size: 26))
+                                .lineSpacing(12)
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: UIScreen.main.bounds.width * 0.40, alignment: .leading)
+                                
+                        
+                    }
+
+                
+                    // Badge on the right side
+                    VStack {
+                        HStack {
+                            Image(systemName: "globe")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.AppSecondary)
+                                .frame(width: 64, height: 64)
+                                .padding(.trailing, 16)
+                            Text("Answer in any language you prefer!")
+                                .font(.golosUIBold(size: 26))
+                                .foregroundColor(.white)
+                        }
+                        .padding(.all, 16)
+                        .background(Color.AppPrimary.opacity(0.5))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray.opacity(0.25), lineWidth: 1)
+                        )
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+                .padding(.leading, 60)
+
+                Spacer()
+                
+                HStack {
+                    VStack {
+                        Image("Spacebar")
+                            .padding(20)
+                        
+                        Button("Leertaste zum Starten") {
+                            self.nextAction()
+                        }
+                         .font(.golosUIRegular(size: 26))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.bottom, 60)
+                }
+                
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.AppPrimary)  // Use Primary color for background
-        .edgesIgnoringSafeArea(.all)
+        .onTapGesture(count: 5) {
+            self.showAdminSettings()
+        }
         .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
     }
     
     private func nextAction() {
         appState.currentView = .keyboardInstructions
+    }
+    
+    private func showAdminSettings() {
+        appState.currentView = .adminSettings
     }
 
     
