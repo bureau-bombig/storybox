@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct StoryboxApp: App {
+    
+    init() {
+        QuestionIDsValueTransformer.register()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

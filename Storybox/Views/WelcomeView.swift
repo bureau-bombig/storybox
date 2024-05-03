@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     @EnvironmentObject var appState: AppState
+    @State private var showAlert = false
     
     var body: some View {
         ZStack {
@@ -40,8 +41,6 @@ struct WelcomeView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
                                 .frame(width: UIScreen.main.bounds.width * 0.40, alignment: .leading)
-                                
-                        
                     }
 
                 
@@ -64,6 +63,9 @@ struct WelcomeView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray.opacity(0.25), lineWidth: 1)
                         )
+                        .onTapGesture(count: 5) {
+                            self.showAdminSettings()
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,14 +90,24 @@ struct WelcomeView: View {
                 
             }
         }
-        .onTapGesture(count: 5) {
-            self.showAdminSettings()
-        }
         .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Fehler in den Administrationseinstellungen"),
+                message: Text("Bitte einem Administrator bescheid geben"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     private func nextAction() {
-        appState.currentView = .keyboardInstructions
+        // Check if any provenance is selected and at least one topic is checked
+        if let _ = AdminSettingsManager.shared.getSelectedProvenanceID(),
+           !AdminSettingsManager.shared.getSelectedTopicIDs().isEmpty {
+            appState.currentView = .keyboardInstructions
+        } else {
+            showAlert = true // Show alert if conditions are not met
+        }
     }
     
     private func showAdminSettings() {

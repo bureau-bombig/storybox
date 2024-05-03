@@ -22,7 +22,6 @@ struct ConfirmAnswerView: View {
                 Spacer()
 
                 Text("Review Your Answer")
-                    //.font(.golosUIRegular(size: 42))
                     .foregroundColor(.white)
                     .padding()
 

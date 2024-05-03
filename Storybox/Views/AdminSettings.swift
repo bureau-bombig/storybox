@@ -10,129 +10,239 @@ import SwiftUI
 struct AdminSettings: View {
     @EnvironmentObject var appState: AppState
     
-    // Dummy data for the dropdown and checkboxes
-    @State private var selectedOption = "Fest der Demokratie @ Bundeskanzleramt"
-    let proveneces = ["Fest der Demokratie @ Bundeskanzleramt", "MS Wissensacht @ Wechselnde Häfen"]
-    let options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9"]
-    @State private var checkedStates = Array(repeating: false, count: 9)
-    
+    @State private var selectedOption: String?
+    @State private var checkedStates: [Bool] = []
+    @State private var isUpdating = false
+    @State private var forceUpdate = UUID()
+
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                Text("Einstellungen")
-                    .font(.golosUIBold(size: 45))
-                    .foregroundColor(.white)
-                    
-                
-                Spacer() // Use Spacer to push content to opposite ends
-                
-                Button("Beiträge hochladen") {
-                    // Action for upload
-                    print("Upload action triggered")
-                }
-                .styledButton()
+            if isUpdating {
+                ProgressView("Updating... Please wait")
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(1.5)
+                    .padding()
             }
-            .padding(.horizontal)
+            HeaderView()
             
-            VStack(alignment: .leading, spacing: 20) {
-
-
-                Text("Anlass oder Eventname")
-                    .font(.golosUIRegular(size: 26))
-                    .foregroundColor(.white)
-                
-                Picker("Options", selection: $selectedOption) {
-                    ForEach(options, id: \.self) { option in
-                        Text(option)
-                            .tag(option)  // Make sure to tag each option correctly
-                            .font(.golosUIRegular(size: 22))
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .foregroundColor(.white)
-                .font(.golosUIRegular(size: 22))
-                .background(.white)
-                .padding(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.25), lineWidth: 1)
-                )
-
-
-                VStack (      alignment: .leading) {
-                    Text("Fragensets auswählen")
-                        .font(.golosUIRegular(size: 26))  // Ensure golosUIRegular is correctly defined
-                        .foregroundColor(.white)
-                        .padding(.bottom, 20)
-                    
-                    // Setting up the grid layout
-                    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)  // 3 columns
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
-                        ForEach(0..<9, id: \.self) { index in
-                            HStack {
-                                Checkbox(isChecked: $checkedStates[index])
-                                Text("Option \(index + 1)")
-                                    .foregroundColor(.white)
-                                    .font(.golosUIRegular(size: 22))
-                            }
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding()// Change to your desired background color
-            }
-            .padding()
+            content
             
-            HStack {
-                Button("Updaten") {
-                    // Reset settings action
-                    print("Reset settings")
-                }
-                .styledButton()
-                
-                Spacer()
-                
-                Button("Zurücksetzen") {
-                    // Save settings action
-                    print("Save settings")
-                }
-                .styledButton()
-                
-                Spacer()
-                
-                Button("Speichern") {
-                    // Save settings action
-                    print("Save settings")
-                }
-                .styledButton()
-                
-                Spacer()
-                
-                Button("Schließen") {
-                    // Save settings action
-                    print("Save settings")
-                }
-                .styledButton()
-            }
-            .padding()      
+            FooterView()
         }
+        .id(forceUpdate)
         .padding(60)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.AppPrimary) // Use Primary color for background
+        .background(Color.AppPrimary)
         .edgesIgnoringSafeArea(.all)
+        .onAppear {
+            loadSettings()
+        }
+        .onChange(of: appState.provenances) { _ in
+            loadSettings()
+        }
+        .onChange(of: appState.topics) { _ in
+            resetTopicSelections() // Reset topic selections whenever topics change
+            loadSettings()
+        }
+    }
+
+    private var content: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Anlass oder Eventname")
+                .font(.golosUIRegular(size: 26))
+                .foregroundColor(.white)
+            
+            setupEventPicker()
+            
+            Text("Fragensets auswählen")
+                .font(.golosUIRegular(size: 26))
+                .foregroundColor(.white)
+                .padding(.bottom, 20)
+            
+            setupTopicsGrid()
+        }
+    }
+
+    private func HeaderView() -> some View {
+        HStack {
+            Text("Einstellungen")
+                .font(.golosUIBold(size: 45))
+                .foregroundColor(.white)
+                
+            Spacer()
+            
+            Button("Beiträge hochladen") {
+                print("Upload action triggered")
+            }
+            .styledButton()
+        }
+        .padding(.horizontal)
+    }
+
+    private func FooterView() -> some View {
+        HStack {
+            Button("Updaten") {
+                updateData()
+            }
+            .styledButton()
+            
+            Spacer()
+            
+            Button("Schließen") {
+                saveProvenanceSelection()
+                saveTopicSelections()
+                appState.currentView = .welcome
+            }
+            .styledButton()
+        }
+        .padding()
+    }
+    
+
+    private func updateData() {
+        isUpdating = true  // Start showing the updating indicator
+        print("Update button clicked")
+        let group = DispatchGroup()
+
+        group.enter()
+        appState.fetchProvenancesFromAPI {
+            group.leave()
+        }
+        
+        group.enter()
+        appState.fetchTopicsFromAPI {
+            self.resetTopicSelections()
+            group.leave()
+        }
+        
+        group.enter()
+        appState.fetchQuestionsFromAPI {
+            group.leave()
+        }
+
+        group.notify(queue: .main) {
+            print("Before resetSettings: \(appState.topics.map { $0.title })")
+            self.resetSettings()
+            print("After resetSettings: Topics count: \(appState.topics.count), CheckedStates: \(self.checkedStates)")
+            self.forceUIUpdate()
+            self.isUpdating = false  // Stop showing the updating indicator
+        }
+    }
+
+    private func resetSettings() {
+        selectedOption = nil
+        checkedStates = Array(repeating: true, count: appState.topics.count)
+        AdminSettingsManager.shared.resetSettings()
+        forceUIUpdate()  // Force UI to refresh
+    }
+
+    
+    private func resetTopicSelections() {
+        checkedStates = Array(repeating: true, count: appState.topics.count)
+    }
+
+
+    private func forceUIUpdate() {
+        print("Forcing UI update")
+        DispatchQueue.main.async {
+            self.forceUpdate = UUID()  // Triggering re-render
+            print("UI update triggered.")
+        }
+    }
+    
+    private func setupEventPicker() -> some View {
+        Picker("Options", selection: $selectedOption) {
+            Text("Select an Event").tag(String?.none as String?)
+            ForEach(appState.provenances, id: \.self) { provenance in
+                Text("\(provenance.title ?? "No Title") @ \(provenance.spatial ?? "No Spatial")").tag(provenance.title as String?)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .padding()
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.25), lineWidth: 1))
+        .onChange(of: selectedOption) { newValue in
+            if let newProvenance = appState.provenances.first(where: { $0.title == newValue }) {
+                AdminSettingsManager.shared.saveSelectedProvenanceID(Int(newProvenance.id))
+            } else {
+                AdminSettingsManager.shared.saveSelectedProvenanceID(nil) // Clear setting if no event is selected
+            }
+        }
+    }
+
+    private func setupTopicsGrid() -> some View {
+        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
+        return LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
+            ForEach(appState.topics.indices, id: \.self) { index in
+                Checkbox(isChecked: Binding(
+                    get: { checkedStates.count > index ? checkedStates[index] : false },
+                    set: { newValue in
+                        if index < checkedStates.count {
+                            checkedStates[index] = newValue
+                            saveTopicSelections()
+                        }
+                    }
+                ), label: appState.topics[index].title ?? "Unknown")
+            }
+        }
+        .padding()
+        .onReceive(appState.$topics) { topics in
+            print("Received new topics update. Current topics: \(topics.map { $0.title ?? "Unknown" })")
+            if checkedStates.count != topics.count {
+                print("Adjusting checkedStates due to count change from \(checkedStates.count) to \(topics.count).")
+                checkedStates = Array(repeating: true, count: topics.count)
+            }
+        }
+    }
+
+    private func saveProvenanceSelection() {
+        if let selected = selectedOption,
+           let provenance = appState.provenances.first(where: { $0.title == selected }) {
+            AdminSettingsManager.shared.saveSelectedProvenanceID(Int(provenance.id))
+        } else {
+            AdminSettingsManager.shared.saveSelectedProvenanceID(nil)
+        }
+    }
+
+
+    private func saveTopicSelections() {
+        let selectedIDs = appState.topics.enumerated().compactMap { index, topic -> Int? in
+            return checkedStates[index] ? Int(topic.id) : nil
+        }
+        AdminSettingsManager.shared.saveSelectedTopicIDs(selectedIDs)
+    }
+    
+    private func loadSettings() {
+        if let provenanceID = AdminSettingsManager.shared.getSelectedProvenanceID(),
+           let provenance = appState.provenances.first(where: { Int($0.id) == provenanceID }) {
+            selectedOption = provenance.title
+        } else {
+            selectedOption = nil
+        }
+
+        // Reinitialize checked states every time settings are loaded
+        checkedStates = Array(repeating: true, count: appState.topics.count)
+        let selectedTopicIDs = AdminSettingsManager.shared.getSelectedTopicIDs()
+        for (index, topic) in appState.topics.enumerated() {
+            checkedStates[index] = selectedTopicIDs.contains(Int(topic.id))
+        }
     }
 }
 
-// Custom checkbox component
 struct Checkbox: View {
     @Binding var isChecked: Bool
+    var label: String
     
     var body: some View {
         Button(action: {
+            print("Checkbox for \(label) toggled from \(isChecked) to \(!isChecked)")
             isChecked.toggle()
         }) {
-            Image(systemName: isChecked ? "checkmark.square" : "square")
-                .foregroundColor(isChecked ? .green : .gray)
+            HStack {
+                Image(systemName: isChecked ? "checkmark.square.fill" : "square")
+                    .foregroundColor(isChecked ? .green : .gray)
+                Text(label)
+                    .foregroundColor(.white)
+            }
         }
     }
 }

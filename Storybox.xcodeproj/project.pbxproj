@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02A1672BE3119600A8F0A0 /* TopicService.swift */; };
 		CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596B82BD9687700656E03 /* StoryboxApp.swift */; };
 		CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BC2BD9687800656E03 /* Assets.xcassets */; };
 		CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BF2BD9687800656E03 /* Preview Assets.xcassets */; };
@@ -35,9 +36,16 @@
 		CEA597272BE1CBB100656E03 /* golos-ui_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA597252BE1C77100656E03 /* golos-ui_bold.ttf */; };
 		CEA597282BE1CBB600656E03 /* golos-ui_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA597262BE1C78D00656E03 /* golos-ui_regular.ttf */; };
 		CEA5972C2BE1E8C100656E03 /* Literata_36pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA5972B2BE1E8AD00656E03 /* Literata_36pt-Medium.ttf */; };
+		CEC8A31A2BE3380100702736 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8A3192BE3380100702736 /* QuestionService.swift */; };
+		CEC8A31C2BE3FE3100702736 /* AdminSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8A31B2BE3FE3100702736 /* AdminSettingsManager.swift */; };
+		CEC8A31E2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8A31D2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift */; };
+		CECA4C5D2BE29989003A09FE /* ProvenanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECA4C5C2BE29989003A09FE /* ProvenanceService.swift */; };
+		CECA4C622BE29C01003A09FE /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECA4C612BE29C01003A09FE /* PersistentStore.swift */; };
+		CECA4C652BE29DF2003A09FE /* StoryboxModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE02A1672BE3119600A8F0A0 /* TopicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
 		CEA596B52BD9687700656E03 /* Storybox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storybox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA596B82BD9687700656E03 /* StoryboxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboxApp.swift; sourceTree = "<group>"; };
 		CEA596BC2BD9687800656E03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +76,12 @@
 		CEA597252BE1C77100656E03 /* golos-ui_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "golos-ui_bold.ttf"; sourceTree = "<group>"; };
 		CEA597262BE1C78D00656E03 /* golos-ui_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "golos-ui_regular.ttf"; sourceTree = "<group>"; };
 		CEA5972B2BE1E8AD00656E03 /* Literata_36pt-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Literata_36pt-Medium.ttf"; sourceTree = "<group>"; };
+		CEC8A3192BE3380100702736 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
+		CEC8A31B2BE3FE3100702736 /* AdminSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsManager.swift; sourceTree = "<group>"; };
+		CEC8A31D2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
+		CECA4C5C2BE29989003A09FE /* ProvenanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvenanceService.swift; sourceTree = "<group>"; };
+		CECA4C612BE29C01003A09FE /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
+		CECA4C642BE29DF2003A09FE /* StoryboxModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoryboxModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +124,7 @@
 				CEA596F82BDAFF4000656E03 /* AppState.swift */,
 				CEA596FA2BDAFF7800656E03 /* ContentView.swift */,
 				CEA597082BDC780900656E03 /* VideoURLManager.swift */,
+				CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */,
 				CEA596DF2BD98A1900656E03 /* Info.plist */,
 				CEA596BE2BD9687800656E03 /* Preview Content */,
 			);
@@ -154,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */,
+				CEC8A31B2BE3FE3100702736 /* AdminSettingsManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -161,6 +177,11 @@
 		CEA596C92BD973ED00656E03 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				CECA4C5C2BE29989003A09FE /* ProvenanceService.swift */,
+				CECA4C612BE29C01003A09FE /* PersistentStore.swift */,
+				CE02A1672BE3119600A8F0A0 /* TopicService.swift */,
+				CEC8A3192BE3380100702736 /* QuestionService.swift */,
+				CEC8A31D2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -292,6 +313,7 @@
 				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
 				CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */,
 				CEA5971C2BE1B3E300656E03 /* AdminSettings.swift in Sources */,
+				CECA4C622BE29C01003A09FE /* PersistentStore.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
@@ -299,14 +321,20 @@
 				CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */,
 				CEA596F12BD9C86F00656E03 /* CameraSettingsView.swift in Sources */,
 				CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */,
+				CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */,
+				CEC8A31C2BE3FE3100702736 /* AdminSettingsManager.swift in Sources */,
 				CEA597202BE1BA8600656E03 /* PrimaryButton.swift in Sources */,
+				CEC8A31E2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift in Sources */,
 				CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */,
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
 				CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */,
 				CEA596D62BD982EE00656E03 /* ColorPalette.swift in Sources */,
 				CEA596F92BDAFF4000656E03 /* AppState.swift in Sources */,
 				CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */,
+				CECA4C5D2BE29989003A09FE /* ProvenanceService.swift in Sources */,
 				CEA5971E2BE1B41600656E03 /* AdminUpload.swift in Sources */,
+				CECA4C652BE29DF2003A09FE /* StoryboxModel.xcdatamodeld in Sources */,
+				CEC8A31A2BE3380100702736 /* QuestionService.swift in Sources */,
 				CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */,
 				CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */,
 			);
@@ -532,6 +560,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CECA4C642BE29DF2003A09FE /* StoryboxModel.xcdatamodel */,
+			);
+			currentVersion = CECA4C642BE29DF2003A09FE /* StoryboxModel.xcdatamodel */;
+			name = StoryboxModel.xcdatamodeld;
+			path = /Users/user/Dev/Storybox/Storybox/StoryboxModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CEA596AD2BD9687700656E03 /* Project object */;
 }
