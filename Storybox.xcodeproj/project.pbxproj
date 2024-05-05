@@ -114,7 +114,6 @@
 		CEA596B72BD9687700656E03 /* Storybox */ = {
 			isa = PBXGroup;
 			children = (
-				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
 				CEA596D22BD979B400656E03 /* Resources */,
 				CEA596C92BD973ED00656E03 /* Helpers */,
 				CEA596C82BD973DF00656E03 /* Controllers */,
@@ -125,6 +124,7 @@
 				CEA596FA2BDAFF7800656E03 /* ContentView.swift */,
 				CEA597082BDC780900656E03 /* VideoURLManager.swift */,
 				CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */,
+				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
 				CEA596DF2BD98A1900656E03 /* Info.plist */,
 				CEA596BE2BD9687800656E03 /* Preview Content */,
 			);

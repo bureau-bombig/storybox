@@ -26,6 +26,7 @@ struct ThankYouView: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
+                        .lineSpacing(8)
 
                     Button("Press space bar to start new") {
                         self.nextAction()

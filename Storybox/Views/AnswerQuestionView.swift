@@ -23,7 +23,7 @@ struct AnswerQuestionView: View {
                         .font(.golosUIRegular(size: 42))
                         .foregroundColor(.white)
                         .padding()
-
+                    
                     ZStack(alignment: .bottomTrailing) {
                         QuestionVideoView()
                             .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))

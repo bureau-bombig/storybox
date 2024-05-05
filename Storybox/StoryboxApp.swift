@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct StoryboxApp: App {
+    let persistentStore = PersistentStore.shared
     
     init() {
         QuestionIDsValueTransformer.register()
@@ -19,6 +20,7 @@ struct StoryboxApp: App {
             ContentView()
                 .environmentObject(AppState())
                 .environmentObject(CameraSessionManager())
+                .environment(\.managedObjectContext, persistentStore.context)
         }
     }
 }

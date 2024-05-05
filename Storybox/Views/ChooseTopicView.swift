@@ -6,66 +6,109 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ChooseTopicView: View {
-    @EnvironmentObject var appState: AppState  // Ensuring we can trigger navigation
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var appState: AppState
     @State private var focusedIndex: Int? = 0
-
-    struct Topic: Identifiable {
-        let id = UUID()
-        let image: String
-        let title: String
-        let description: String
+    @State private var topics: [Topic] = []
+    @State private var topicsCount: Int = 0
+    
+    // Fetching topic data from CoreData
+    private func fetchTopics() {
+        let topicIDs = AdminSettingsManager.shared.getSelectedTopicIDs()
+        guard !topicIDs.isEmpty else {
+            print("No topic IDs are stored.")
+            return
+        }
+        let request: NSFetchRequest<Topic> = Topic.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", topicIDs)
+        do {
+            self.topics = try viewContext.fetch(request)
+            self.topicsCount = topics.count
+        } catch {
+            print("Failed to fetch topics: \(error.localizedDescription)")
+        }
     }
-
-    private let topics: [Topic] = [
-        Topic(image: "topic-nature", title: "Environment", description: "Discuss the freedom in the context of environmental conservation."),
-        Topic(image: "topic-politics", title: "Politics", description: "Explore freedoms related to political expression and activism."),
-        Topic(image: "topic-technology", title: "Technology", description: "Debate on the freedom of information and digital rights."),
-        Topic(image: "topic-education", title: "Education", description: "Consider the freedom of learning and access to information.")
-    ]
 
     var body: some View {
         GeometryReader { geometry in
             VStack {
+                HStack (alignment: .bottom, spacing: 120) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Wähle dein")
+                            .font(.golosUIBold(size: 45))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                        Text("Thema")
+                            .font(.literata(size: 45))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Wähle ein Thema und bestätige mit Leertaste. Jedes Thema hat Fragen die du beantworten kannst.")
+                        .font(.golosUIRegular(size: 20))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.leading)
+                        .lineSpacing(8)
+                }
+                
                 Spacer()
-                Text("Choose a Topic")
-                    .font(.golosUIRegular(size: 42))
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
-
-                Text("Select a topic that interests you to see related questions.")
-                    .font(.literata(size: 16))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(topics.indices, id: \.self) { index in
-                            TopicCard(topic: topics[index], isFocused: focusedIndex == index)
-                                .onTapGesture {
-                                    nextView()  // Action when tapping or selecting with space
-                                }
+                
+                ScrollViewReader { scrollView in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(topics.indices, id: \.self) { index in
+                                TopicCard(topic: topics[index], isFocused: $focusedIndex.wrappedValue == index)
+                                    .id(index)
+                                    .onTapGesture {
+                                        focusedIndex = index
+                                        nextView()
+                                    }
+                            }
                         }
                     }
-                    .padding(.horizontal)
+                    // React to changes in focusedIndex to scroll into view
+                    .onChange(of: focusedIndex) { newIndex in
+                        withAnimation {
+                            scrollView.scrollTo(newIndex, anchor: .center)
+                        }
+                    }
                 }
-                .frame(height: 300)
-
+                .padding(.bottom, 20)
+                
                 Spacer()
+                
+                HStack () {
+                    Image("arrowkey-left")
+                    Spacer()
+                    Image("arrowkey-right")
+                }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color.AppPrimary)
+            .background(KeyboardResponder(focusedIndex: $focusedIndex, topicsCount: topicsCount, action: nextView).frame(width: 0, height: 0))
         }
+        .padding(60)
+        .background(Color.AppPrimary)
         .edgesIgnoringSafeArea(.all)
-        .background(KeyboardResponder(focusedIndex: $focusedIndex, topicsCount: topics.count, action: nextView).frame(width: 0, height: 0))
+        .onAppear {
+            DispatchQueue.main.async {
+                self.fetchTopics()
+            }
+        }
     }
     
     private func nextView() {
-        // Here you might save the selected topic for later processing
-        // Comment: Save selected topic here later
-        appState.currentView = .cameraSettings
+        if let index = focusedIndex, index >= 0 && index < topics.count {
+            appState.selectedTopic = topics[index]
+            appState.currentView = .cameraSettings
+        } else {
+            print("No topic selected or invalid index")
+        }
     }
     
     private struct KeyboardResponder: UIViewControllerRepresentable {
@@ -77,7 +120,9 @@ struct ChooseTopicView: View {
             return KeyboardViewController(focusedIndex: $focusedIndex, topicsCount: topicsCount, action: action)
         }
 
-        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {}
+        internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {
+            uiViewController.topicsCount = topicsCount
+        }
     }
 
 }
@@ -121,8 +166,10 @@ private class KeyboardViewController: UIViewController {
                     focusedIndex.wrappedValue = index + 1
                 }
             case (44): // space bar
-                if focusedIndex.wrappedValue != nil {
+                if let index = focusedIndex.wrappedValue, index >= 0 && index < topicsCount {
                     action()  // Trigger the action associated with the selected topic
+                } else {
+                    print("Invalid topic selection or index out of range")
                 }
             default:
                 break
@@ -132,46 +179,31 @@ private class KeyboardViewController: UIViewController {
 }
 
 struct TopicCard: View {
-    let topic: ChooseTopicView.Topic
+    let topic: Topic
     var isFocused: Bool
-
     var body: some View {
-        VStack {
-            Image(topic.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 250, height: 150)
-                .clipped()
-                .grayscale(1.0)
-                .overlay(
-                    Color.AppPrimary
-                        .blendMode(.hardLight)
-                )
-
-            Text(topic.title)
-                .font(.golosUIRegular(size: 24))
+        VStack (alignment: .leading, spacing: 20) {
+            Text(topic.title ?? "No Title")
+                .font(.golosUIBold(size: 32))
                 .foregroundColor(.white)
-                .padding(.top)
-
-            Text(topic.description)
-                .font(.literata(size: 16))
+                .multilineTextAlignment(.leading)
+            Text(topic.topicDescription ?? "No Description")
+                .font(.golosUIRegular(size: 20))
                 .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .padding()
+                .multilineTextAlignment(.leading)
+                .lineSpacing(8)
         }
+        .frame(width: 350, height: 200)
+        .padding(48)
         .background(Color.AppPrimaryDark)
-        .cornerRadius(10)
+        .cornerRadius(5)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(isFocused ? Color.AppSecondary : Color.white, lineWidth: isFocused ? 5 : 2) // Focus indication
+                .stroke(isFocused ? Color.AppSecondary : Color.white, lineWidth: isFocused ? 10 : 2)
         )
-        .shadow(radius: 5)
-        .frame(width: 250)
-        // .onTapGesture added here if needed or keep it in the ScrollView's HStack
     }
 }
-
-
+ 
 struct ChooseTopicView_Previews: PreviewProvider {
     static var previews: some View {
         ChooseTopicView()

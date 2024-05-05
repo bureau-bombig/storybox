@@ -41,6 +41,7 @@ struct WelcomeView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
                                 .frame(width: UIScreen.main.bounds.width * 0.40, alignment: .leading)
+                                .lineSpacing(8)
                     }
 
                 

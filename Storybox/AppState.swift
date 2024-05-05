@@ -9,11 +9,20 @@ import SwiftUI
 import CoreData
 
 class AppState: ObservableObject {
-    @Published var currentView: AppView = .welcome
+    @Published var currentView: AppView = .chooseTopic
     @Published var provenances: [Provenance] = []
     @Published var topics: [Topic] = []
     @Published var questions: [Question] = []
-
+    @Published var nickname: String = ""
+    @Published var email: String = ""
+    @Published var realName: String = ""
+    @Published var locality: String = ""
+    
+    @Published var selectedTopic: Topic?
+    @Published var currentQuestionIndex: Int = 0
+    @Published var recordings: [URL] = []
+    @Published var isAudioOnly: Bool = false
+    
     private let context = PersistentStore.shared.context
 
     init() {

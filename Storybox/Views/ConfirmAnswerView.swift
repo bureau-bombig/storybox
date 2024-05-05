@@ -30,6 +30,7 @@ struct ConfirmAnswerView: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding()
+                    .lineSpacing(8)
 
                 if let url = videoURLManager.outputFileLocation {
                     CustomVideoPlayerView(url: url, player: $player)
