@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 class AppState: ObservableObject {
-    @Published var currentView: AppView = .cameraSettings
+    @Published var currentView: AppView = .welcome
     @Published var provenances: [Provenance] = []
     @Published var topics: [Topic] = []
     @Published var questions: [Question] = []
