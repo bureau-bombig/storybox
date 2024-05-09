@@ -21,7 +21,7 @@ class AppManager {
 
     func resetIdleTimer() {
         idleTimer?.invalidate()
-        idleTimer = Timer.scheduledTimer(withTimeInterval: 120, repeats: false) { [weak self] _ in
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: false) { [weak self] _ in
             self?.restartApplication()
         }
     }
