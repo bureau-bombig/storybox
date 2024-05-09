@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02A1672BE3119600A8F0A0 /* TopicService.swift */; };
+		CE4D550D2BE9A2B00068D8BA /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */; };
+		CE4D550F2BEA79400068D8BA /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550E2BEA79400068D8BA /* ItemService.swift */; };
+		CE4D55152BEAEB5B0068D8BA /* restartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D55142BEAEB5B0068D8BA /* restartApp.swift */; };
+		CE4D55172BEAEC350068D8BA /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D55162BEAEC350068D8BA /* AppManager.swift */; };
+		CE4D551A2BEC38A30068D8BA /* TUSKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE4D55192BEC38A30068D8BA /* TUSKit */; };
+		CE4D551C2BEC432F0068D8BA /* TUSClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D551B2BEC432F0068D8BA /* TUSClientManager.swift */; };
 		CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596B82BD9687700656E03 /* StoryboxApp.swift */; };
 		CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BC2BD9687800656E03 /* Assets.xcassets */; };
 		CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BF2BD9687800656E03 /* Preview Assets.xcassets */; };
@@ -26,7 +32,7 @@
 		CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FA2BDAFF7800656E03 /* ContentView.swift */; };
 		CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */; };
 		CEA596FF2BDB2F3300656E03 /* CameraSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */; };
-		CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597082BDC780900656E03 /* VideoURLManager.swift */; };
+		CEA597092BDC780900656E03 /* FileURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597082BDC780900656E03 /* FileURLManager.swift */; };
 		CEA597132BDE9E7800656E03 /* KeyboardInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */; };
 		CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */; };
 		CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */; };
@@ -46,6 +52,11 @@
 
 /* Begin PBXFileReference section */
 		CE02A1672BE3119600A8F0A0 /* TopicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
+		CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
+		CE4D550E2BEA79400068D8BA /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
+		CE4D55142BEAEB5B0068D8BA /* restartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = restartApp.swift; sourceTree = "<group>"; };
+		CE4D55162BEAEC350068D8BA /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		CE4D551B2BEC432F0068D8BA /* TUSClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUSClientManager.swift; sourceTree = "<group>"; };
 		CEA596B52BD9687700656E03 /* Storybox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storybox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA596B82BD9687700656E03 /* StoryboxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboxApp.swift; sourceTree = "<group>"; };
 		CEA596BC2BD9687800656E03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,7 +77,7 @@
 		CEA596FA2BDAFF7800656E03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionManager.swift; sourceTree = "<group>"; };
-		CEA597082BDC780900656E03 /* VideoURLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoURLManager.swift; sourceTree = "<group>"; };
+		CEA597082BDC780900656E03 /* FileURLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileURLManager.swift; sourceTree = "<group>"; };
 		CEA597122BDE9E7800656E03 /* KeyboardInstructionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstructionsView.swift; sourceTree = "<group>"; };
 		CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAccessoryTextField.swift; sourceTree = "<group>"; };
 		CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
@@ -89,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4D551A2BEC38A30068D8BA /* TUSKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +134,6 @@
 				CEA596B82BD9687700656E03 /* StoryboxApp.swift */,
 				CEA596F82BDAFF4000656E03 /* AppState.swift */,
 				CEA596FA2BDAFF7800656E03 /* ContentView.swift */,
-				CEA597082BDC780900656E03 /* VideoURLManager.swift */,
 				CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */,
 				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
 				CEA596DF2BD98A1900656E03 /* Info.plist */,
@@ -169,7 +180,11 @@
 			isa = PBXGroup;
 			children = (
 				CEA596FE2BDB2F3300656E03 /* CameraSessionManager.swift */,
+				CEA597082BDC780900656E03 /* FileURLManager.swift */,
 				CEC8A31B2BE3FE3100702736 /* AdminSettingsManager.swift */,
+				CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */,
+				CE4D55162BEAEC350068D8BA /* AppManager.swift */,
+				CE4D551B2BEC432F0068D8BA /* TUSClientManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,6 +197,8 @@
 				CE02A1672BE3119600A8F0A0 /* TopicService.swift */,
 				CEC8A3192BE3380100702736 /* QuestionService.swift */,
 				CEC8A31D2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift */,
+				CE4D550E2BEA79400068D8BA /* ItemService.swift */,
+				CE4D55142BEAEB5B0068D8BA /* restartApp.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -250,6 +267,9 @@
 			dependencies = (
 			);
 			name = Storybox;
+			packageProductDependencies = (
+				CE4D55192BEC38A30068D8BA /* TUSKit */,
+			);
 			productName = Storybox;
 			productReference = CEA596B52BD9687700656E03 /* Storybox.app */;
 			productType = "com.apple.product-type.application";
@@ -278,6 +298,9 @@
 				Base,
 			);
 			mainGroup = CEA596AC2BD9687700656E03;
+			packageReferences = (
+				CE4D55182BEC38A30068D8BA /* XCRemoteSwiftPackageReference "TUSKit" */,
+			);
 			productRefGroup = CEA596B62BD9687700656E03 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -311,10 +334,11 @@
 				CEA596FD2BDB1BD000656E03 /* CameraPreview.swift in Sources */,
 				CEA596EF2BD9C59B00656E03 /* ChooseTopicView.swift in Sources */,
 				CEA596FB2BDAFF7800656E03 /* ContentView.swift in Sources */,
-				CEA597092BDC780900656E03 /* VideoURLManager.swift in Sources */,
+				CEA597092BDC780900656E03 /* FileURLManager.swift in Sources */,
 				CEA5971C2BE1B3E300656E03 /* AdminSettings.swift in Sources */,
 				CECA4C622BE29C01003A09FE /* PersistentStore.swift in Sources */,
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
+				CE4D550D2BE9A2B00068D8BA /* AudioSessionManager.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
 				CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */,
@@ -324,7 +348,11 @@
 				CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */,
 				CEC8A31C2BE3FE3100702736 /* AdminSettingsManager.swift in Sources */,
 				CEA597202BE1BA8600656E03 /* PrimaryButton.swift in Sources */,
+				CE4D55152BEAEB5B0068D8BA /* restartApp.swift in Sources */,
+				CE4D55172BEAEC350068D8BA /* AppManager.swift in Sources */,
+				CE4D551C2BEC432F0068D8BA /* TUSClientManager.swift in Sources */,
 				CEC8A31E2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift in Sources */,
+				CE4D550F2BEA79400068D8BA /* ItemService.swift in Sources */,
 				CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */,
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
 				CEA596EB2BD9BC7D00656E03 /* UserDataInputView.swift in Sources */,
@@ -481,12 +509,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -519,12 +547,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -560,6 +588,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE4D55182BEC38A30068D8BA /* XCRemoteSwiftPackageReference "TUSKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tus/TUSKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE4D55192BEC38A30068D8BA /* TUSKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE4D55182BEC38A30068D8BA /* XCRemoteSwiftPackageReference "TUSKit" */;
+			productName = TUSKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CECA4C632BE29DF2003A09FE /* StoryboxModel.xcdatamodeld */ = {

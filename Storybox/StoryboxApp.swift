@@ -10,17 +10,17 @@ import SwiftUI
 @main
 struct StoryboxApp: App {
     let persistentStore = PersistentStore.shared
-    
+    let appState = AppState()
+
     init() {
+        AppManager.shared.setup(with: appState)
         QuestionIDsValueTransformer.register()
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(AppState())
-                .environmentObject(CameraSessionManager())
-                .environment(\.managedObjectContext, persistentStore.context)
-        }
+                .environmentObject(appState)
+                .environment(\.managedObjectContext, persistentStore.context)        }
     }
 }

@@ -11,38 +11,62 @@ import SwiftUI
 struct ThankYouView: View {
     @EnvironmentObject var appState: AppState
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
+        ZStack {
+            Image("welcome-background") // Ensure this image is in your asset catalog
+                .resizable()
+                .scaledToFill()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack() {
                 Spacer()
-
-                VStack(spacing: 20) {
-                    Text("Thank You!")
-                        .font(.golosUIRegular(size: 42))
-                        .foregroundColor(.white)
-                        .padding()
-
-                    Text("Your contribution is highly valuable to our project. Feel free to share more thoughts!")
-                        .font(.literata(size: 16))
+                VStack(alignment: .center) {
+                    
+                        Text("Vielen Dank für")
+                            .font(.golosUIBold(size: 65))
+                            .foregroundColor(.white)
+                            .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .center)
+                            
+                        Text("deinen Beitrag")
+                            .font(.literata(size: 65))
+                            .foregroundColor(.white)
+                            .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .center)
+                            .padding(.bottom, 20)
+                        
+                        Text("Du findest deine Beiträge, nach Freigabe, unter")
+                            .font(.golosUIRegular(size: 26))
+                            .lineSpacing(12)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                            .padding(.bottom, 20)
+                    
+                    Text("www․freiheitsarchiv․de")
+                        .font(.golosUIBold(size: 32))
+                        .lineSpacing(12)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .padding()
-                        .lineSpacing(8)
-
-                    Button("Press space bar to start new") {
-                        self.nextAction()
-                    }
-                    .styledButton()
+                        .frame(width: UIScreen.main.bounds.width, alignment: .center)
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color.AppPrimary)
-                .cornerRadius(10)
-
+                Spacer()
+                HStack {
+                    VStack {
+                        Image("Spacebar")
+                            .padding(20)
+                        
+                        Button("Leertaste zum Starten") {
+                            self.nextAction()
+                        }
+                         .font(.golosUIRegular(size: 26))
+                            .foregroundColor(.white)
+                    }
+                }
                 Spacer()
             }
-            .background(Color.AppPrimary)
-            .edgesIgnoringSafeArea(.all)
-            .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .edgesIgnoringSafeArea(.all)
+        .background(KeyboardResponder(nextAction: self.nextAction).frame(width: 0, height: 0, alignment: .center))
     }
     
     private func nextAction() {
@@ -77,10 +101,14 @@ private class KeyboardViewController: UIViewController {
         for press in presses {
             guard let key = press.key else { continue }
             print("Key pressed: \(key)")
+            AppManager.shared.resetIdleTimer() 
             
             if (key.keyCode.rawValue == 44) {
                 nextAction?()
 
+            }
+            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+                AppManager.shared.restartApplication()
             }
         }
     }

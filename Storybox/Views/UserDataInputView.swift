@@ -213,6 +213,7 @@ private class KeyboardViewController: UIViewController {
          }
 
         print("Key pressed: \(key.keyCode)")
+        AppManager.shared.resetIdleTimer() 
 
         switch key.keyCode.rawValue {
         case (80):
@@ -243,6 +244,10 @@ private class KeyboardViewController: UIViewController {
             if let character = mapKeyToCharacter(key: key) {
                 appendText(character)
             }
+        }
+        
+        if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+            AppManager.shared.restartApplication()
         }
     }
     

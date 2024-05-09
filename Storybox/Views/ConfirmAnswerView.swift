@@ -10,43 +10,76 @@ import AVKit
 
 struct ConfirmAnswerView: View {
     @EnvironmentObject var appState: AppState
-    @ObservedObject var videoURLManager = VideoURLManager.shared
+    @ObservedObject var fileURLManager = FileURLManager.shared
     @State private var player: AVPlayer?
     @State private var isPlaying = false
     @State private var focusedIndex: Int = 0  // 0 for Play, 1 for Delete, 2 for Submit
 
 
+    private var relevantQuestions: [Question] {
+        guard let topic = appState.selectedTopic else { return [] }
+        guard let questionIDs = topic.questionIDs as? [Int] else { return [] }
+        return appState.questions.filter { question in
+            questionIDs.contains(Int(question.id))
+        }
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
+
+                HStack (alignment: .bottom, spacing: 120) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Deine")
+                            .font(.golosUIBold(size: 45))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                        Text("Antwort")
+                            .font(.literata(size: 45))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.leading)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Schau dir deine Antwort nocheinmal an. Speicher die Antwort ab oder lösche die Anwort und spreche sie neu ein.")
+                        .font(.golosUIRegular(size: 20))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.leading)
+                        .lineSpacing(8)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
                 Spacer()
-
-                Text("Review Your Answer")
-                    .foregroundColor(.white)
-                    .padding()
-
-                Text("Make sure you are satisfied with your recording before submitting.")
-                    .font(.literata(size: 16))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .lineSpacing(8)
-
-                if let url = videoURLManager.outputFileLocation {
+                
+                if let url = fileURLManager.outputFileLocation {
                     CustomVideoPlayerView(url: url, player: $player)
                         .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))
                         .cornerRadius(12)
                         .shadow(radius: 5)
-                        .padding()
+                        .overlay(
+                            Group {
+                                if appState.isAudioOnly {
+                                    // Show fallback image when audio only is enabled
+                                    Image("no-camera-fallback")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.5 * (9 / 16))
+                                        .cornerRadius(12)
+                                }
+                            }
+                        )
                 } else {
                     Text("Waiting for recording to finish or no recording found")
                         .foregroundColor(.white)
                         .padding()
                 }
 
-                controlButtons()
                 Spacer()
+                controlButtons()
+            
             }
+            .padding(80)
             .frame(width: geometry.size.width)
             .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
@@ -55,37 +88,20 @@ struct ConfirmAnswerView: View {
         }
     }
 
-    /*
-    private func setupPlayer(url: URL) {
-        let item = AVPlayerItem(url: url)
-        player = AVPlayer(playerItem: item)
-        
-        // Set up a notification to reset the player when the video finishes playing
-        NotificationCenter.default.addObserver(
-            forName: .AVPlayerItemDidPlayToEndTime,
-            object: item,
-            queue: .main) { [self] _ in
-                self.player?.seek(to: .zero, completionHandler: { _ in
-                    self.isPlaying = false // Ensure the button reflects the correct state
-                })
-            }
-    }
-     */
-
     @ViewBuilder
     private func controlButtons() -> some View {
         HStack(spacing: 20) {
-            Button(isPlaying ? "Pause Recording" : "Play Recording") {
+            Button(isPlaying ? "Stoppen" : "Abspielen") {
                 togglePlayback()
             }
             .styledButton(focused: focusedIndex == 0)
 
-            Button("Delete Recording") {
+            Button("Löschen") {
                 deleteRecording()
             }
             .styledButton(focused: focusedIndex == 1)
             
-            Button("Submit Recording") {
+            Button("Einreichen") {
                 submitRecording()
             }
             .styledButton(focused: focusedIndex == 2)
@@ -110,11 +126,19 @@ struct ConfirmAnswerView: View {
         appState.currentView = .answerQuestion
         player?.pause()
         player = nil
-        videoURLManager.outputFileLocation = nil
+        fileURLManager.outputFileLocation = nil
     }
 
     private func submitRecording() {
-        appState.currentView = .thankYou
+        ItemService.shared.createItem(from: appState, recordingURL: fileURLManager.outputFileLocation)
+        if appState.currentQuestionIndex < relevantQuestions.count - 1 {
+            // Move to the next question
+            appState.currentQuestionIndex += 1
+            appState.currentView = .answerQuestion
+        } else {
+            // No more questions, show thank you screen
+            appState.currentView = .thankYou
+        }
         player?.pause()
         player = nil
     }
@@ -153,6 +177,7 @@ private class KeyboardViewController: UIViewController {
         super.pressesBegan(presses, with: event)
         for press in presses {
             guard let key = press.key else { continue }
+            AppManager.shared.resetIdleTimer() 
             
             switch key.keyCode.rawValue {
             case (80): // left arrow key
@@ -167,6 +192,9 @@ private class KeyboardViewController: UIViewController {
                 actionHandlers[focusedIndex.wrappedValue]()
             default:
                 break
+            }
+            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+                AppManager.shared.restartApplication()
             }
         }
     }

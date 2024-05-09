@@ -148,6 +148,10 @@ private class KeyboardViewController: UIViewController {
                 nextAction?()
 
             }
+            
+            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+                AppManager.shared.restartApplication()
+            }
         }
     }
 }

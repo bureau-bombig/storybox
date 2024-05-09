@@ -72,11 +72,10 @@ struct AdminSettings: View {
             Spacer()
             
             Button("Beiträge hochladen") {
-                print("Upload action triggered")
+                appState.currentView = .adminUpload
             }
             .styledButton()
         }
-        .padding(.horizontal)
     }
 
     private func FooterView() -> some View {

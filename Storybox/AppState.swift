@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 class AppState: ObservableObject {
-    @Published var currentView: AppView = .chooseTopic
+    @Published var currentView: AppView = .welcome
     @Published var provenances: [Provenance] = []
     @Published var topics: [Topic] = []
     @Published var questions: [Question] = []
@@ -17,7 +17,6 @@ class AppState: ObservableObject {
     @Published var email: String = ""
     @Published var realName: String = ""
     @Published var locality: String = ""
-    
     @Published var selectedTopic: Topic?
     @Published var currentQuestionIndex: Int = 0
     @Published var recordings: [URL] = []
@@ -237,6 +236,12 @@ class AppState: ObservableObject {
     }
 
 
+}
+
+extension AppState {
+    func getSelectedProvenanceID() -> Int? {
+        return AdminSettingsManager.shared.getSelectedProvenanceID()
+    }
 }
 
 enum AppView {

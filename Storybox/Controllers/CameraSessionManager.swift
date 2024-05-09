@@ -112,7 +112,7 @@ class CameraSessionManager: NSObject, ObservableObject, AVCaptureFileOutputRecor
                 print("Error recording movie: \(error.localizedDescription)")
             } else {
                 print("Recording finished successfully to \(outputFileURL)")
-                VideoURLManager.shared.outputFileLocation = outputFileURL
+                FileURLManager.shared.outputFileLocation = outputFileURL
             }
         }
     }

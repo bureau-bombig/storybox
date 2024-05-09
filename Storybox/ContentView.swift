@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
         viewForCurrentState(appState.currentView)
+            .gesture(DragGesture(minimumDistance: 1, coordinateSpace: .global)  // Increase minimum distance slightly
+                        .onChanged { _ in AppManager.shared.resetIdleTimer() }
+                        .onEnded { _ in AppManager.shared.resetIdleTimer() }
+                        .simultaneously(with: DragGesture().onChanged { _ in })
+            )
+            .onTapGesture {
+                AppManager.shared.resetIdleTimer()
+            }
+            .onAppear {
+                AppManager.shared.resetIdleTimer()
+            }
     }
     
     @ViewBuilder

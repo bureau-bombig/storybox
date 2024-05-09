@@ -155,6 +155,7 @@ private class KeyboardViewController: UIViewController {
         for press in presses {
             guard let key = press.key else { continue }
             print("Key pressed: \(key)")
+            AppManager.shared.resetIdleTimer() 
             
             switch key.keyCode.rawValue {
             case (80): // left arrow key
@@ -173,6 +174,9 @@ private class KeyboardViewController: UIViewController {
                 }
             default:
                 break
+            }
+            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+                AppManager.shared.restartApplication()
             }
         }
     }
