@@ -49,7 +49,7 @@ struct ChooseTopicView: View {
                     
                     Spacer()
                     
-                    Text("Wähle ein Thema und bestätige mit Leertaste. Jedes Thema hat Fragen die du beantworten kannst.")
+                    Text("Wähle ein Thema und bestätige mit der Leertaste. Jedes Thema enthält Fragen, die du beantworten kannst. ")
                         .font(.golosUIRegular(size: 20))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)

@@ -14,6 +14,10 @@ struct AdminSettings: View {
     @State private var checkedStates: [Bool] = []
     @State private var isUpdating = false
     @State private var forceUpdate = UUID()
+    
+    // Use @State to manage the timer cancellation
+    @State private var timer: Timer?
+
 
     var body: some View {
         VStack(spacing: 20) {
@@ -36,6 +40,8 @@ struct AdminSettings: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear {
             loadSettings()
+            startContinuousReset()
+
         }
         .onChange(of: appState.provenances) { _ in
             loadSettings()
@@ -43,6 +49,9 @@ struct AdminSettings: View {
         .onChange(of: appState.topics) { _ in
             resetTopicSelections() // Reset topic selections whenever topics change
             loadSettings()
+        }
+        .onDisappear() {
+            stopContinuousReset()
         }
     }
 
@@ -80,16 +89,17 @@ struct AdminSettings: View {
 
     private func FooterView() -> some View {
         HStack {
-            Button("Updaten") {
+            Button("Inhalte nachladen") {
                 updateData()
             }
             .styledButton()
             
             Spacer()
             
-            Button("Schließen") {
+            Button("Speichern") {
                 saveProvenanceSelection()
                 saveTopicSelections()
+                refreshAppState()
                 appState.currentView = .welcome
             }
             .styledButton()
@@ -97,6 +107,24 @@ struct AdminSettings: View {
         .padding()
     }
     
+    private func refreshAppState() {
+        isUpdating = true  // Show loading indicator
+        appState.refreshData {
+            isUpdating = false  // Hide loading indicator once data is refreshed
+        }
+    }
+    
+    private func startContinuousReset() {
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            AppManager.shared.resetIdleTimer()
+            print("adminsettings: reset idle timer 1 sec")
+        }
+    }
+
+    private func stopContinuousReset() {
+        timer?.invalidate()
+        timer = nil  // Clear out the timer
+    }
 
     private func updateData() {
         isUpdating = true  // Start showing the updating indicator

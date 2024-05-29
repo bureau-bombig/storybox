@@ -10,6 +10,8 @@ import SwiftUI
 struct AdminUpload: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var tusManager = TUSClientManager.shared
+    @State private var timer: Timer?
+
 
     @FetchRequest(
         entity: Item.entity(),
@@ -29,6 +31,10 @@ struct AdminUpload: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear() {
             print(items.count)
+            startContinuousReset()
+        }
+        .onDisappear() {
+            stopContinuousReset()
         }
     }
 
@@ -66,6 +72,19 @@ struct AdminUpload: View {
         }
         .padding(.top, 20)
     }
+    
+    private func startContinuousReset() {
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            AppManager.shared.resetIdleTimer()
+            print("adminupload: reset idle timer 1 sec")
+        }
+    }
+
+    private func stopContinuousReset() {
+        timer?.invalidate()
+        timer = nil  // Clear out the timer
+    }
+
 
     private func itemRow(_ item: Item) -> some View {
         HStack {

@@ -244,6 +244,33 @@ extension AppState {
     }
 }
 
+extension AppState {
+    func refreshData(completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+
+        group.enter()
+        fetchProvenancesFromAPI {
+            group.leave()
+        }
+        
+        group.enter()
+        fetchTopicsFromAPI {
+            group.leave()
+        }
+        
+        group.enter()
+        fetchQuestionsFromAPI {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            print("All data refreshed.")
+            completion()
+        }
+    }
+}
+
+
 enum AppView {
 case welcome, introVideo, keyboardInstructions, userDataInput, chooseTopic, cameraSettings, answerQuestion, confirmAnswer, thankYou, adminSettings, adminUpload
 }

@@ -38,6 +38,11 @@ class AppManager {
         appState.email = ""
         appState.nickname = ""
         appState.locality = ""
+        appState.currentQuestionIndex = 0
+        appState.selectedTopic = nil
+        appState.recordings.removeAll()
+        appState.isAudioOnly = false
+        
         appState.currentView = .welcome
         // Add more reset logic here as needed
     }

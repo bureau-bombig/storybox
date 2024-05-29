@@ -14,9 +14,13 @@ struct AnswerQuestionView: View {
     @State private var isRecording = false
     @EnvironmentObject var appState: AppState
     @State private var focusedIndex = 0
-    @State private var enableKeyboard = false
+    @State private var enableKeyboard = true // false for enable keyboard only after video ended
     @ObservedObject private var cameraSessionManager = CameraSessionManager()
     @ObservedObject private var audioSessionManager = AudioSessionManager()
+    @State private var versionKey: UUID = UUID()
+    @State private var recordingTimer: Timer?
+
+
     
     // Computed property to get relevant questions based on the selected topic
     private var relevantQuestions: [Question] {
@@ -35,6 +39,7 @@ struct AnswerQuestionView: View {
                         HStack () {
                         
                             Text("Frage: \(question.title ?? "No Question available")")
+                                .id(appState.currentQuestionIndex)
                                 .font(.golosUIBold(size: 45))
                                 .foregroundColor(.white)
                                 .lineLimit(nil)
@@ -42,6 +47,10 @@ struct AnswerQuestionView: View {
                                 .lineSpacing(12)
                                 .onAppear() {
                                     print(relevantQuestions)
+                                    print("######### THIS QUESTION ##########")
+                                    print(question.id)
+                                    print(question.title ?? "No title available")
+                                    print(question.localURL ?? "No localUrl available")
                                 }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -51,11 +60,13 @@ struct AnswerQuestionView: View {
                         GeometryReader { geometry in
                             ZStack(alignment: .topTrailing) {
                                 // Question Video View
-                                QuestionVideoView(videoURLString: question.localURL ?? "", enableKeyboard: $enableKeyboard)
-                                    .frame(width: geometry.size.width * 0.6, height: geometry.size.width * 0.6 * (9 / 16))
-                                    .background(Color.gray)
-                                    .cornerRadius(12)
-                                
+                                if let question = relevantQuestions[safe: appState.currentQuestionIndex] {
+                                    QuestionVideoView(question: question, enableKeyboard: $enableKeyboard)
+                                        .frame(width: geometry.size.width * 0.6, height: geometry.size.width * 0.6 * (9 / 16))
+                                        .background(Color.gray)
+                                        .cornerRadius(12)
+                                }
+
                                 // Camera Preview
                                 if !appState.isAudioOnly {
                                     CameraPreview(session: cameraSessionManager.session)
@@ -113,9 +124,12 @@ struct AnswerQuestionView: View {
             .edgesIgnoringSafeArea(.all)
             .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color.AppPrimary)
+            .id(versionKey)
             .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [skipQuestion, toggleRecording], isRecording: $isRecording, enableKeyboard: $enableKeyboard).frame(width: 0, height: 0, alignment: .center))
             .onAppear {
                 setupNotifications() // Set up the notification observer when the view appears
+                print("View appeared with question index: \(appState.currentQuestionIndex)")
+                print("Version Key: \(versionKey)")
             }
         }
     }
@@ -127,27 +141,28 @@ struct AnswerQuestionView: View {
     }
     
     private func skipQuestion() {
-        print("skip this")
         if appState.currentQuestionIndex < relevantQuestions.count - 1 {
-            print("next question")
             appState.currentQuestionIndex += 1
-            appState.currentView = .answerQuestion
+            versionKey = UUID()  // Update the version key to force a full view refresh
         } else {
-            print("was last question")
             appState.currentView = .thankYou
         }
     }
-    
+
     private func toggleRecording() {
         print("toggleRecording \(isRecording ? "end" : "start"), isAudioOnly: \(appState.isAudioOnly)")
         if isRecording {
             if appState.isAudioOnly {
                 print("Stopping audio recording...")
                 audioSessionManager.stopRecording()
+                recordingTimer?.invalidate()
+                recordingTimer = nil
             } else {
                 print("Stopping video recording...")
                 cameraSessionManager.stopRecording()
                 cameraSessionManager.stopSession()
+                recordingTimer?.invalidate()
+                recordingTimer = nil
             }
             isRecording = false
             appState.currentView = .confirmAnswer
@@ -155,9 +170,15 @@ struct AnswerQuestionView: View {
             if appState.isAudioOnly {
                 print("Starting audio recording...")
                 audioSessionManager.startRecording()
+                recordingTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+                    AppManager.shared.resetIdleTimer()
+                }
             } else {
                 print("Starting video recording...")
                 cameraSessionManager.startRecording()
+                recordingTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+                    AppManager.shared.resetIdleTimer()
+                }
             }
             isRecording = true
         }
@@ -242,22 +263,30 @@ private class KeyboardViewController: UIViewController {
 
 
 private struct QuestionVideoView: View {
-    let videoURLString: String
-    @State private var player: AVPlayer?
+    var question: Question  // Use a regular variable, not a binding
     @Binding var enableKeyboard: Bool
+    @State private var player: AVPlayer?
 
     var body: some View {
         VideoPlayer(player: player)
-        .onAppear {
-            setupPlayer()
-        }
+            .onAppear {
+                setupPlayer()
+            }
+            .onChange(of: question) { newQuestion in
+                setupPlayer()
+            }
     }
 
     private func setupPlayer() {
-        guard let url = URL(string: videoURLString),
+        player?.pause()
+        player = nil
+        NotificationCenter.default.removeObserver(self)
+
+        guard let url = URL(string: question.localURL ?? ""),
               let fileName = url.pathComponents.last,
               let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            print("Invalid URL or file name extraction failed: \(videoURLString)")
+            print("Invalid URL or file name extraction failed.")
+            enableKeyboard = true
             return
         }
 
@@ -265,17 +294,26 @@ private struct QuestionVideoView: View {
         if FileManager.default.fileExists(atPath: videoFilePath) {
             let fileURL = URL(fileURLWithPath: videoFilePath)
             player = AVPlayer(url: fileURL)
-            observePlayer(player)
             player?.play()
+            observePlayer(player)
+        } else {
+            print("Video file does not exist: \(videoFilePath)")
+            enableKeyboard = true
         }
     }
 
     private func observePlayer(_ player: AVPlayer?) {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem, queue: .main) { _ in
-            enableKeyboard = true  // Enable keyboard controls after video finishes
+            enableKeyboard = true
+        }
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: player?.currentItem, queue: .main) { notification in
+            print("Failed to play video to end: \(notification.userInfo?["error"] ?? "Unknown error")")
+            enableKeyboard = true
         }
     }
 }
+
+
 
 extension Collection {
     /// Returns the element at the specified index if it is within bounds, otherwise nil.

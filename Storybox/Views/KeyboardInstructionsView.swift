@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KeyboardInstructionsView: View {
     @EnvironmentObject var appState: AppState
-    @State private var focusedIndex: Int = 1
+    @State private var focusedIndex: Int = 0
 
     
     var body: some View {
@@ -32,7 +32,7 @@ struct KeyboardInstructionsView: View {
             HStack(spacing: 12) {
                 InstructionView(
                     image: "arrowkeys",
-                    text: "Pfeiltasten zum navigaieren"
+                    text: "Pfeiltasten zum navigieren"
                 )
                 InstructionView(
                     image: "Spacebar",

@@ -14,11 +14,15 @@ struct UserDataInputView: View {
     @State private var email: String = ""
     @State private var realName: String = ""
     @State private var locality: String = ""
-    @State private var focusedIndex: Int = 0  // Indexes: 0 = nickname, 1 = email, 2 = realName, 3 = locality, 4 = back button, 5 = confirm button
+    @State private var focusedIndex: Int = 0
     @State private var nicknameTouched: Bool = false
     @State private var emailTouched: Bool = false
     @State private var realNameTouched: Bool = false
     @State private var localityTouched: Bool = false
+    @State private var showingLegalDocuments = false
+    @State private var selectedDocumentType: String = "gdpr" // Default document type
+
+
     
 
     var body: some View {
@@ -38,7 +42,7 @@ struct UserDataInputView: View {
                         Spacer()
                         
                         
-                        Text("Wir brauchen nur ein paar Angaben zu  deiner Person, deine Zustimmung zu unseren Bestimmungen und dann kann es schon los gehen!")
+                        Text("Wir brauchen nur ein paar Angaben zu deiner Person, deine Zustimmung zu unseren Bestimmungen und dann kann es schon los gehen!")
                             .font(.golosUIRegular(size: 20))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.leading)
@@ -67,16 +71,48 @@ struct UserDataInputView: View {
                                 get: { self.focusedIndex == 2 },
                                 set: { if $0 { self.focusedIndex = 2 } }
                             ), isTouched: $realNameTouched,  isValid: !realName.isEmpty)
-                            LabelledTextField(label: "Locality (Nicht öffentlich sichtbar)", placeholder: "In welcher Stadt lebst du?", text: $locality, isFocused: Binding(
+                            LabelledTextField(label: "Wohnort (Nicht öffentlich sichtbar)", placeholder: "In welcher Stadt lebst du?", text: $locality, isFocused: Binding(
                                 get: { self.focusedIndex == 3 },
                                 set: { if $0 { self.focusedIndex = 3 } }
                             ), isTouched: $localityTouched,  isValid: !locality.isEmpty)
                         }
-                        
-                        Text("Ich habe die Datenschutzerklärung, die Einwilligungserklärung zur Verarbeitung meiner personenbezogenen Daten und die Einreichbedingungen vollständig gelesen und stimme diesen zu.")
-                            .font(.golosUIRegular(size: 20))
-                            .foregroundColor(.white)
-                            .lineSpacing(8)
+ 
+                        VStack(alignment: .leading, spacing: 4) {
+                 
+                            HStack {
+                                Text("Ich habe die")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+                                
+                                FocusableText(text: "Datenschutzerklärung", index: 4, focusedIndex: $focusedIndex)
+                                Text(",")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+
+                                Text("die")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+                                
+                                FocusableText(text: "Einwilligungserklärung", index: 5, focusedIndex: $focusedIndex)
+                                Text("zur Verarbeitung meiner")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            HStack {
+                                Text("personenbezogenen Daten und")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+                                FocusableText(text: "Einreichbedingungen", index: 6, focusedIndex: $focusedIndex)
+                                Text("vollständig gelesen und stimme diesen zu.")
+                                    .font(.golosUIRegular(size: 20))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading) // Ensure it aligns to the left and wraps text
+
+
+
                     }
 
                     Spacer()
@@ -85,22 +121,48 @@ struct UserDataInputView: View {
                         Button("Zurück") {
                             self.backAction()
                         }
-                        .styledButton(focused: focusedIndex == 4)
+                        .styledButton(focused: focusedIndex == 7)
                         
                         Spacer()
 
                         Button("Bestätigen") {
                                 self.nextAction()
                         }
-                        .styledButton(focused: focusedIndex == 5)
+                        .styledButton(focused: focusedIndex == 8)
                         .disabled(!validateInputs())
                     }
         }
         .padding(60)
         .background(Color.AppPrimary)
         .edgesIgnoringSafeArea(.all)
-        .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [self.backAction, self.nextAction], textInputs: [$nickname, $email, $realName, $locality]))
+        .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [self.backAction, self.nextAction], textInputs: [$nickname, $email, $realName, $locality], selectedDocumentType: $selectedDocumentType, showingLegalDocuments: $showingLegalDocuments))
+        .overlay(
+                   showingLegalDocuments ? LegalDocumentsView(selectedDocument: $selectedDocumentType).onTapGesture {
+                       showingLegalDocuments = false
+                   } : nil
+               )
     }
+    
+    struct FocusableText: View {
+        let text: String
+        let index: Int
+        @Binding var focusedIndex: Int
+
+        var body: some View {
+            Text(text)
+                .font(.golosUIRegular(size: 20))
+                .foregroundColor(focusedIndex == index ? Color("AppSecondary") : .white)
+                .padding(0)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(focusedIndex == index ? Color("AppSecondary") : Color.clear, lineWidth: 2)
+                )
+                .onTapGesture {
+                    focusedIndex = index  // This will toggle focus on and off by clicking the same item again
+                }
+        }
+    }
+
     
     private func nextAction() {
         if validateInputs() {
@@ -127,11 +189,11 @@ struct UserDataInputView: View {
         @Binding var focusedIndex: Int
         var actionHandlers: [() -> Void]
         var textInputs: [Binding<String>]
+        @Binding var selectedDocumentType: String
+        @Binding var showingLegalDocuments: Bool
 
         internal func makeUIViewController(context: Context) -> KeyboardViewController {
-            // Initialize KeyboardViewController with required parameters
-            let controller = KeyboardViewController(focusedIndex: $focusedIndex, textInputs: textInputs, actionHandlers: actionHandlers)
-            return controller
+            return KeyboardViewController(focusedIndex: $focusedIndex, textInputs: textInputs, actionHandlers: actionHandlers, selectedDocumentType: $selectedDocumentType, showingLegalDocuments: $showingLegalDocuments)
         }
 
         internal func updateUIViewController(_ uiViewController: KeyboardViewController, context: Context) {
@@ -159,6 +221,8 @@ extension String {
 
 private class KeyboardViewController: UIViewController {
     var focusedIndex: Binding<Int>
+    var selectedDocumentType: Binding<String>
+    var showingLegalDocuments: Binding<Bool>
     var textInputs: [Binding<String>]
     var actionHandlers: [() -> Void]
     private var deleteTimer: Timer?
@@ -195,10 +259,12 @@ private class KeyboardViewController: UIViewController {
         return false
     }
 
-    init(focusedIndex: Binding<Int>, textInputs: [Binding<String>], actionHandlers: [() -> Void]) {
+    init(focusedIndex: Binding<Int>, textInputs: [Binding<String>], actionHandlers: [() -> Void], selectedDocumentType: Binding<String>, showingLegalDocuments: Binding<Bool>) {
         self.focusedIndex = focusedIndex
         self.textInputs = textInputs
         self.actionHandlers = actionHandlers
+        self.selectedDocumentType = selectedDocumentType
+        self.showingLegalDocuments = showingLegalDocuments
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -217,21 +283,49 @@ private class KeyboardViewController: UIViewController {
 
         switch key.keyCode.rawValue {
         case (80):
-            if focusedIndex.wrappedValue > 0 {
+            if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue > 0 {
                 focusedIndex.wrappedValue -= 1
             }
         case (79):
-            if focusedIndex.wrappedValue < 5 { // Includes navigation to buttons
+            if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue < 8 { // Includes navigation to buttons
                 focusedIndex.wrappedValue += 1
+            }
+        case (82):
+            if showingLegalDocuments.wrappedValue {
+                // Logic to scroll up in the web view
+                NotificationCenter.default.post(name: Notification.Name("ScrollUpLegalDocument"), object: nil)
+            }
+        case (81):
+            if showingLegalDocuments.wrappedValue {
+                // Logic to scroll down in the web view
+                NotificationCenter.default.post(name: Notification.Name("ScrollDownLegalDocument"), object: nil)
             }
         case (44): // Space key
             if focusedIndex.wrappedValue < 4 { // Assuming indexes 0-3 are for text fields
-                appendText(" ") // Append space to the text field
+                appendText(" ")
             } else {
-                // Trigger action for focusedIndex - 4 (back and confirm buttons)
-                DispatchQueue.main.async {
-                    if self.focusedIndex.wrappedValue - 4 < self.actionHandlers.count {
-                        self.actionHandlers[self.focusedIndex.wrappedValue - 4]()
+                switch focusedIndex.wrappedValue {
+                case 4, 5, 6: // Assuming these are your focusable legal document links
+                    showingLegalDocuments.wrappedValue.toggle() // Correct way to toggle
+                    if showingLegalDocuments.wrappedValue { // Check the actual value
+                        switch focusedIndex.wrappedValue {
+                        case 4:
+                            selectedDocumentType.wrappedValue = "gdpr"
+                        case 5:
+                            selectedDocumentType.wrappedValue = "consent"
+                        case 6:
+                            selectedDocumentType.wrappedValue = "condition"
+                        default:
+                            break
+                        }
+                    }
+                default:
+                    // Handle other buttons or actions
+                    if (focusedIndex.wrappedValue == 7) {
+                        actionHandlers[0]()
+                    }
+                    if (focusedIndex.wrappedValue == 8) {
+                        actionHandlers[1]()
                     }
                 }
             }

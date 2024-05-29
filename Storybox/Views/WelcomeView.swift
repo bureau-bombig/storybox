@@ -105,7 +105,7 @@ struct WelcomeView: View {
         // Check if any provenance is selected and at least one topic is checked
         if let _ = AdminSettingsManager.shared.getSelectedProvenanceID(),
            !AdminSettingsManager.shared.getSelectedTopicIDs().isEmpty {
-            appState.currentView = .keyboardInstructions
+            appState.currentView = .introVideo
         } else {
             showAlert = true // Show alert if conditions are not met
         }

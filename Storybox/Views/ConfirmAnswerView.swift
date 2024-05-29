@@ -42,7 +42,7 @@ struct ConfirmAnswerView: View {
                     
                     Spacer()
                     
-                    Text("Schau dir deine Antwort nocheinmal an. Speicher die Antwort ab oder lösche die Anwort und spreche sie neu ein.")
+                    Text("Schau dir deine Antwort noch einmal an. Speichere die Antwort ab oder lösche die Antwort und sprich sie neu ein.")
                         .font(.golosUIRegular(size: 20))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)

@@ -69,7 +69,7 @@ struct CameraSettingsView: View {
                     
                     HStack() {
                         Image("double-arrow")
-                        Text("Bist du gut im Bild zusehen? In der Kabine findest du mehr infos darüber")
+                        Text("Bist du gut im Bild zu sehen? In der Kabine findest du mehr Infos darüber.")
                             .font(.golosUIRegular(size: 20))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.leading)

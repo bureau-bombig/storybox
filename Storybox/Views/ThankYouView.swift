@@ -54,7 +54,7 @@ struct ThankYouView: View {
                         Image("Spacebar")
                             .padding(20)
                         
-                        Button("Leertaste zum Starten") {
+                        Button("Leertaste zum Abschließen") {
                             self.nextAction()
                         }
                          .font(.golosUIRegular(size: 26))
@@ -70,7 +70,7 @@ struct ThankYouView: View {
     }
     
     private func nextAction() {
-        appState.currentView = .welcome
+        AppManager.shared.restartApplication()
     }
 
     
