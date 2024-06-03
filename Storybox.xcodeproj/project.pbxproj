@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02A1672BE3119600A8F0A0 /* TopicService.swift */; };
+		CE1BAADD2C0A8EB60016C0C1 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */; };
+		CE1BAAE32C0A936C0016C0C1 /* error-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE1BAAE22C0A936C0016C0C1 /* error-sound.mp3 */; };
 		CE4D550D2BE9A2B00068D8BA /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */; };
 		CE4D550F2BEA79400068D8BA /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550E2BEA79400068D8BA /* ItemService.swift */; };
 		CE4D55152BEAEB5B0068D8BA /* restartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D55142BEAEB5B0068D8BA /* restartApp.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		CE02A1672BE3119600A8F0A0 /* TopicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
+		CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
+		CE1BAAE22C0A936C0016C0C1 /* error-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "error-sound.mp3"; sourceTree = "<group>"; };
 		CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		CE4D550E2BEA79400068D8BA /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
 		CE4D55142BEAEB5B0068D8BA /* restartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = restartApp.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 				CEC8A31D2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift */,
 				CE4D550E2BEA79400068D8BA /* ItemService.swift */,
 				CE4D55142BEAEB5B0068D8BA /* restartApp.swift */,
+				CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 		CEA596D02BD979B400656E03 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				CE1BAAE22C0A936C0016C0C1 /* error-sound.mp3 */,
 				CEEA9BC12BF13AB6001E5526 /* IntroVideo.mp4 */,
 				CEA596E62BD9B7E700656E03 /* IntroVideo_old.mp4 */,
 			);
@@ -331,6 +337,7 @@
 				CEA5972C2BE1E8C100656E03 /* Literata_36pt-Medium.ttf in Resources */,
 				CEA597282BE1CBB600656E03 /* golos-ui_regular.ttf in Resources */,
 				CEA597272BE1CBB100656E03 /* golos-ui_bold.ttf in Resources */,
+				CE1BAAE32C0A936C0016C0C1 /* error-sound.mp3 in Resources */,
 				CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */,
 				CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */,
 			);
@@ -378,6 +385,7 @@
 				CEC8A31A2BE3380100702736 /* QuestionService.swift in Sources */,
 				CEEA9BC62BF154A5001E5526 /* WebView.swift in Sources */,
 				CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */,
+				CE1BAADD2C0A8EB60016C0C1 /* AudioHelper.swift in Sources */,
 				CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +536,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -566,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

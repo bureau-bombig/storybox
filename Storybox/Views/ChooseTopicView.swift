@@ -161,12 +161,16 @@ private class KeyboardViewController: UIViewController {
             case (80): // left arrow key
                 if let index = focusedIndex.wrappedValue, index > 0 {
                     focusedIndex.wrappedValue = index - 1
+                }  else {
+                    playErrorSound()
                 }
             case (79): // right arrow key
                 if let index = focusedIndex.wrappedValue, index < topicsCount - 1 {
                     focusedIndex.wrappedValue = index + 1
+                }  else {
+                    playErrorSound()
                 }
-            case (44): // space bar
+            case 44, 40: // space bar
                 if let index = focusedIndex.wrappedValue, index >= 0 && index < topicsCount {
                     action()  // Trigger the action associated with the selected topic
                 } else {
@@ -187,6 +191,11 @@ struct TopicCard: View {
     var isFocused: Bool
     var body: some View {
         VStack (alignment: .leading, spacing: 20) {
+            Text("Anzahl der Fragen: \(countQuestionIDs(topic))")
+                .font(.golosUIRegular(size: 20))
+                .foregroundColor(Color.AppPrimaryLight)
+                .multilineTextAlignment(.leading)
+                .lineSpacing(8)
             Text(topic.title ?? "No Title")
                 .font(.golosUIBold(size: 32))
                 .foregroundColor(.white)
@@ -205,6 +214,13 @@ struct TopicCard: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(isFocused ? Color.AppSecondary : Color.white, lineWidth: isFocused ? 10 : 2)
         )
+    }
+    
+    private func countQuestionIDs(_ topic: Topic) -> Int {
+        if let questionIDs = topic.questionIDs as? [Any] {
+            return questionIDs.count
+        }
+        return 0
     }
 }
  

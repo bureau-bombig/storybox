@@ -24,6 +24,7 @@ struct ContentView: View {
             .onAppear {
                 AppManager.shared.resetIdleTimer()
             }
+            .statusBar(hidden: true)  // Hide status bar
     }
     
     @ViewBuilder

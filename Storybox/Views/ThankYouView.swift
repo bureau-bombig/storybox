@@ -33,7 +33,7 @@ struct ThankYouView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .center)
                             .padding(.bottom, 20)
                         
-                        Text("Du findest deine Beiträge, nach Freigabe, unter")
+                        Text("Du findest deine Beiträge nach ein paar Tagen im Coronarchiv.")
                             .font(.golosUIRegular(size: 26))
                             .lineSpacing(12)
                             .foregroundColor(.white)

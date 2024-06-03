@@ -67,7 +67,7 @@ struct UserDataInputView: View {
                             ), isTouched: $emailTouched,  isValid: email.isValidEmail())
                         }
                         HStack (spacing: 60){
-                            LabelledTextField(label: "Dein echter Name (Nicht öffentlich sichtbar)", placeholder: "Wie heißt du wirklich?", text: $realName, isFocused: Binding(
+                            LabelledTextField(label: "Dein Vor- und Nachname (Nicht öffentlich sichtbar)", placeholder: "Wie heißt du wirklich?", text: $realName, isFocused: Binding(
                                 get: { self.focusedIndex == 2 },
                                 set: { if $0 { self.focusedIndex = 2 } }
                             ), isTouched: $realNameTouched,  isValid: !realName.isEmpty)
@@ -285,22 +285,40 @@ private class KeyboardViewController: UIViewController {
         case (80):
             if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue > 0 {
                 focusedIndex.wrappedValue -= 1
+            } else {
+                playErrorSound()
             }
         case (79):
             if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue < 8 { // Includes navigation to buttons
                 focusedIndex.wrappedValue += 1
+            } else {
+                playErrorSound()
             }
         case (82):
+            if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue > 1 {
+                focusedIndex.wrappedValue -= 2
+            } else if (!showingLegalDocuments.wrappedValue) {
+                playErrorSound()
+            }
             if showingLegalDocuments.wrappedValue {
                 // Logic to scroll up in the web view
                 NotificationCenter.default.post(name: Notification.Name("ScrollUpLegalDocument"), object: nil)
             }
         case (81):
+            if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue < 7 {
+                focusedIndex.wrappedValue += 2
+            } else if (!showingLegalDocuments.wrappedValue) {
+                playErrorSound()
+            }
             if showingLegalDocuments.wrappedValue {
                 // Logic to scroll down in the web view
                 NotificationCenter.default.post(name: Notification.Name("ScrollDownLegalDocument"), object: nil)
             }
-        case (44): // Space key
+        case (43):
+            if !showingLegalDocuments.wrappedValue && focusedIndex.wrappedValue < 8 {
+                focusedIndex.wrappedValue += 1
+            }
+        case 44, 40: // Space key
             if focusedIndex.wrappedValue < 4 { // Assuming indexes 0-3 are for text fields
                 appendText(" ")
             } else {

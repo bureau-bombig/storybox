@@ -21,6 +21,7 @@ struct StoryboxApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appState)
-                .environment(\.managedObjectContext, persistentStore.context)        }
+                .environment(\.managedObjectContext, persistentStore.context)   
+        }
     }
 }

@@ -13,13 +13,13 @@ import CoreData
 struct AnswerQuestionView: View {
     @State private var isRecording = false
     @EnvironmentObject var appState: AppState
-    @State private var focusedIndex = 0
+    @State private var focusedIndex = 1
     @State private var enableKeyboard = true // false for enable keyboard only after video ended
     @ObservedObject private var cameraSessionManager = CameraSessionManager()
     @ObservedObject private var audioSessionManager = AudioSessionManager()
     @State private var versionKey: UUID = UUID()
     @State private var recordingTimer: Timer?
-
+    @State private var showFlash = false // State for flash effect
 
     
     // Computed property to get relevant questions based on the selected topic
@@ -131,8 +131,23 @@ struct AnswerQuestionView: View {
                 print("View appeared with question index: \(appState.currentQuestionIndex)")
                 print("Version Key: \(versionKey)")
             }
+            
+            // Flash Overlay
+            if showFlash {
+                Color.white
+                    .edgesIgnoringSafeArea(.all)
+                    .opacity(showFlash ? 0.6 : 0)
+                    .animation(.easeInOut(duration: 0.1), value: showFlash)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            showFlash = false
+                        }
+                    }
+            }
         }
     }
+    
+    
     
     private func setupNotifications() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("ToggleRecordingNotification"), object: nil, queue: .main) { [self] _ in
@@ -167,6 +182,7 @@ struct AnswerQuestionView: View {
             isRecording = false
             appState.currentView = .confirmAnswer
         } else {
+            showFlash = true // Trigger the flash effect
             if appState.isAudioOnly {
                 print("Starting audio recording...")
                 audioSessionManager.startRecording()
@@ -238,12 +254,16 @@ private class KeyboardViewController: UIViewController {
                 case (80): // left arrow key
                     if !isRecording.wrappedValue && focusedIndex.wrappedValue > 0 {
                         focusedIndex.wrappedValue -= 1
+                    } else {
+                        playErrorSound()
                     }
                 case (79): // right arrow key
                     if !isRecording.wrappedValue && focusedIndex.wrappedValue < 1 {
                         focusedIndex.wrappedValue += 1
+                    } else {
+                        playErrorSound()
                     }
-                case (44): // space bar
+                case 44, 40:// space bar
                     
                     if focusedIndex.wrappedValue == 0 {
                         actionHandlers[0]()

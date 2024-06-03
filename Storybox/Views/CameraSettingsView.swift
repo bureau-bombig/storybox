@@ -12,7 +12,7 @@ struct CameraSettingsView: View {
     @StateObject private var cameraSessionManager = CameraSessionManager()
     @State private var isAudioOnly = false
     @EnvironmentObject var appState: AppState
-    @State private var focusedIndex: Int = 0
+    @State private var focusedIndex: Int = 2
 
     var body: some View {
         GeometryReader { geometry in
@@ -165,12 +165,16 @@ private class KeyboardViewController: UIViewController {
             case (80): // left arrow key
                 if focusedIndex.wrappedValue > 0 {
                     focusedIndex.wrappedValue -= 1
+                }  else {
+                    playErrorSound()
                 }
             case (79): // right arrow key
                 if focusedIndex.wrappedValue < 2{
                     focusedIndex.wrappedValue += 1
+                }  else {
+                    playErrorSound()
                 }
-            case (44): // space bar
+            case 44, 40:// space bar
                 
                 if focusedIndex.wrappedValue == 0 {
                     actionHandlers[0]()

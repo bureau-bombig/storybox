@@ -144,9 +144,8 @@ private class KeyboardViewController: UIViewController {
             guard let key = press.key else { continue }
             print("Key pressed: \(key)")
             
-            if (key.keyCode.rawValue == 44) {
-                nextAction?()
-
+            if key.keyCode.rawValue == 44 || key.keyCode.rawValue == 40 {
+                nextAction?() 
             }
             
             if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {

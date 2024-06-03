@@ -13,7 +13,7 @@ struct ConfirmAnswerView: View {
     @ObservedObject var fileURLManager = FileURLManager.shared
     @State private var player: AVPlayer?
     @State private var isPlaying = false
-    @State private var focusedIndex: Int = 0  // 0 for Play, 1 for Delete, 2 for Submit
+    @State private var focusedIndex: Int = 2  // 0 for Play, 1 for Delete, 2 for Submit
 
 
     private var relevantQuestions: [Question] {
@@ -183,12 +183,16 @@ private class KeyboardViewController: UIViewController {
             case (80): // left arrow key
                 if focusedIndex.wrappedValue > 0 {
                     focusedIndex.wrappedValue -= 1
+                } else {
+                    playErrorSound()
                 }
             case (79): // right arrow key
                 if focusedIndex.wrappedValue < actionHandlers.count - 1 {
                     focusedIndex.wrappedValue += 1
+                } else {
+                    playErrorSound()
                 }
-            case (44): // space bar
+            case 44, 40: // space bar
                 actionHandlers[focusedIndex.wrappedValue]()
             default:
                 break
