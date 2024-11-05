@@ -32,7 +32,7 @@ struct WelcomeView: View {
                                 .foregroundColor(.white)
                                 .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .leading)
                                 
-                            Text("Freiheitsarchiv")
+                            Text("Freiheitsarchivs")
                                 .font(.literata(size: 65))
                                 .foregroundColor(.white)
                                 .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .leading)
