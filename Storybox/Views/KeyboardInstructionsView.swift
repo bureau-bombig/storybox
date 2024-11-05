@@ -32,11 +32,11 @@ struct KeyboardInstructionsView: View {
             HStack(spacing: 12) {
                 InstructionView(
                     image: "arrowkeys",
-                    text: "Pfeiltasten zum navigieren"
+                    text: "Pfeiltasten zum Navigieren"
                 )
                 InstructionView(
                     image: "Spacebar",
-                    text: "Leertaste zum bestätigen"
+                    text: "Leertaste zum Bestätigen"
                 )
             }
             .frame(maxWidth: .infinity)
