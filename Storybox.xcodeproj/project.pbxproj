@@ -129,6 +129,7 @@
 			children = (
 				CEA596B72BD9687700656E03 /* Storybox */,
 				CEA596B62BD9687700656E03 /* Products */,
+				CE5DFC992C0771E5009E2633 /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,7 +156,6 @@
 				CEA596BC2BD9687800656E03 /* Assets.xcassets */,
 				CEA596DF2BD98A1900656E03 /* Info.plist */,
 				CEA596BE2BD9687800656E03 /* Preview Content */,
-				CE5DFC992C0771E5009E2633 /* .gitignore */,
 			);
 			path = Storybox;
 			sourceTree = "<group>";
