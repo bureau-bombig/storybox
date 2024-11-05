@@ -21,10 +21,14 @@ class AppState: ObservableObject {
     @Published var currentQuestionIndex: Int = 0
     @Published var recordings: [URL] = []
     @Published var isAudioOnly: Bool = false
-    
+        
     private let context = PersistentStore.shared.context
 
     init() {
+        fetchLocalData()
+    }
+    
+    func fetchLocalData() {
         fetchLocalProvenances()
         fetchLocalTopics()
         fetchLocalQuestions()

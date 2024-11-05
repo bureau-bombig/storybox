@@ -11,6 +11,10 @@ import SwiftUI
 struct StoryboxApp: App {
     let persistentStore = PersistentStore.shared
     let appState = AppState()
+    
+    @StateObject private var networkMonitor = NetworkMonitor()
+    @Environment(\.scenePhase) var scenePhase
+
 
     init() {
         AppManager.shared.setup(with: appState)
@@ -21,7 +25,16 @@ struct StoryboxApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appState)
-                .environment(\.managedObjectContext, persistentStore.context)   
+                .environment(\.managedObjectContext, persistentStore.context)
+                .environmentObject(networkMonitor)
+                .onAppear {
+                             BackgroundTaskScheduler.shared.scheduleBackgroundTask()
+                         }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                BackgroundTaskScheduler.shared.scheduleBackgroundTask()
+            }
         }
     }
 }

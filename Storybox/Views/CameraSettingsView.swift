@@ -83,7 +83,7 @@ struct CameraSettingsView: View {
                     Button("Zurück") {
                         self.backAction()
                     }
-                    .styledButton(focused: focusedIndex == 0)
+                    .styledButton(focused: focusedIndex == 0, outline: true)
                     .padding(.trailing, 20)
                     
                     HStack(spacing: 8) {
@@ -185,11 +185,10 @@ private class KeyboardViewController: UIViewController {
                 if focusedIndex.wrappedValue == 2 {
                     actionHandlers[1]()
                 }
+            case (69):
+                AppManager.shared.restartApplication()
             default:
                 break
-            }
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
-                AppManager.shared.restartApplication()
             }
         }
     }

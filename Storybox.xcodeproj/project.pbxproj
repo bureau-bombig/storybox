@@ -10,6 +10,8 @@
 		CE02A1682BE3119600A8F0A0 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02A1672BE3119600A8F0A0 /* TopicService.swift */; };
 		CE1BAADD2C0A8EB60016C0C1 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */; };
 		CE1BAAE32C0A936C0016C0C1 /* error-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE1BAAE22C0A936C0016C0C1 /* error-sound.mp3 */; };
+		CE1BAAE52C1B100F0016C0C1 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BAAE42C1B100F0016C0C1 /* NetworkMonitor.swift */; };
+		CE1BAAE72C1B10660016C0C1 /* BackgroundTaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1BAAE62C1B10660016C0C1 /* BackgroundTaskScheduler.swift */; };
 		CE4D550D2BE9A2B00068D8BA /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */; };
 		CE4D550F2BEA79400068D8BA /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D550E2BEA79400068D8BA /* ItemService.swift */; };
 		CE4D55152BEAEB5B0068D8BA /* restartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D55142BEAEB5B0068D8BA /* restartApp.swift */; };
@@ -17,6 +19,7 @@
 		CE4D551A2BEC38A30068D8BA /* TUSKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE4D55192BEC38A30068D8BA /* TUSKit */; };
 		CE4D551C2BEC432F0068D8BA /* TUSClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D551B2BEC432F0068D8BA /* TUSClientManager.swift */; };
 		CE5DFC9A2C0771E5009E2633 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CE5DFC992C0771E5009E2633 /* .gitignore */; };
+		CE8412BB2CC6C548007F2EC4 /* NonInteractiveVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8412BA2CC6C545007F2EC4 /* NonInteractiveVideoPlayer.swift */; };
 		CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA596B82BD9687700656E03 /* StoryboxApp.swift */; };
 		CEA596BD2BD9687800656E03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BC2BD9687800656E03 /* Assets.xcassets */; };
 		CEA596C02BD9687800656E03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA596BF2BD9687800656E03 /* Preview Assets.xcassets */; };
@@ -59,12 +62,15 @@
 		CE02A1672BE3119600A8F0A0 /* TopicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
 		CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		CE1BAAE22C0A936C0016C0C1 /* error-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "error-sound.mp3"; sourceTree = "<group>"; };
+		CE1BAAE42C1B100F0016C0C1 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		CE1BAAE62C1B10660016C0C1 /* BackgroundTaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskScheduler.swift; sourceTree = "<group>"; };
 		CE4D550C2BE9A2B00068D8BA /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		CE4D550E2BEA79400068D8BA /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
 		CE4D55142BEAEB5B0068D8BA /* restartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = restartApp.swift; sourceTree = "<group>"; };
 		CE4D55162BEAEC350068D8BA /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		CE4D551B2BEC432F0068D8BA /* TUSClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUSClientManager.swift; sourceTree = "<group>"; };
 		CE5DFC992C0771E5009E2633 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CE8412BA2CC6C545007F2EC4 /* NonInteractiveVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonInteractiveVideoPlayer.swift; sourceTree = "<group>"; };
 		CEA596B52BD9687700656E03 /* Storybox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storybox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA596B82BD9687700656E03 /* StoryboxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboxApp.swift; sourceTree = "<group>"; };
 		CEA596BC2BD9687800656E03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,6 +218,8 @@
 				CE4D550E2BEA79400068D8BA /* ItemService.swift */,
 				CE4D55142BEAEB5B0068D8BA /* restartApp.swift */,
 				CE1BAADC2C0A8EB60016C0C1 /* AudioHelper.swift */,
+				CE1BAAE42C1B100F0016C0C1 /* NetworkMonitor.swift */,
+				CE1BAAE62C1B10660016C0C1 /* BackgroundTaskScheduler.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -258,6 +266,7 @@
 		CEA597142BDECFD800656E03 /* ViewParts */ = {
 			isa = PBXGroup;
 			children = (
+				CE8412BA2CC6C545007F2EC4 /* NonInteractiveVideoPlayer.swift */,
 				CEA596FC2BDB1BD000656E03 /* CameraPreview.swift */,
 				CEA597172BDED16C00656E03 /* NoAccessoryTextField.swift */,
 				CEA597192BDF01D600656E03 /* CustomVideoPlayer.swift */,
@@ -359,6 +368,7 @@
 				CEA596B92BD9687700656E03 /* StoryboxApp.swift in Sources */,
 				CE4D550D2BE9A2B00068D8BA /* AudioSessionManager.swift in Sources */,
 				CEA596DC2BD9868200656E03 /* Typography.swift in Sources */,
+				CE1BAAE72C1B10660016C0C1 /* BackgroundTaskScheduler.swift in Sources */,
 				CEA596F52BD9D1EA00656E03 /* ConfirmAnswerView.swift in Sources */,
 				CEA5971A2BDF01D600656E03 /* CustomVideoPlayer.swift in Sources */,
 				CEA597182BDED16C00656E03 /* NoAccessoryTextField.swift in Sources */,
@@ -372,6 +382,7 @@
 				CE4D55172BEAEC350068D8BA /* AppManager.swift in Sources */,
 				CE4D551C2BEC432F0068D8BA /* TUSClientManager.swift in Sources */,
 				CEC8A31E2BE42EC300702736 /* NSSecureUnarchiveFromDataTransformer.swift in Sources */,
+				CE8412BB2CC6C548007F2EC4 /* NonInteractiveVideoPlayer.swift in Sources */,
 				CE4D550F2BEA79400068D8BA /* ItemService.swift in Sources */,
 				CEA596E42BD9979600656E03 /* IntroVideoView.swift in Sources */,
 				CEA596F32BD9CF0800656E03 /* AnswerQuestionView.swift in Sources */,
@@ -385,6 +396,7 @@
 				CEC8A31A2BE3380100702736 /* QuestionService.swift in Sources */,
 				CEEA9BC62BF154A5001E5526 /* WebView.swift in Sources */,
 				CEA596E12BD990FC00656E03 /* WelcomeView.swift in Sources */,
+				CE1BAAE52C1B100F0016C0C1 /* NetworkMonitor.swift in Sources */,
 				CE1BAADD2C0A8EB60016C0C1 /* AudioHelper.swift in Sources */,
 				CEA596F72BD9D3DC00656E03 /* ThankYouView.swift in Sources */,
 			);
@@ -518,10 +530,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -536,10 +550,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.;
+				MARKETING_VERSION = 1.9.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -556,10 +571,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Storybox/Preview Content\"";
-				DEVELOPMENT_TEAM = G9PBUNAZKM;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = G9PBUNAZKM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Storybox/Info.plist;
@@ -574,10 +591,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.;
+				MARKETING_VERSION = 1.9.;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bombig.Storybox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

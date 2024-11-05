@@ -21,17 +21,17 @@ struct AdminSettings: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            HeaderView()
+            
+            content
+            
+            FooterView()
             if isUpdating {
                 ProgressView("Updating... Please wait")
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .scaleEffect(1.5)
                     .padding()
             }
-            HeaderView()
-            
-            content
-            
-            FooterView()
         }
         .id(forceUpdate)
         .padding(60)
@@ -97,6 +97,9 @@ struct AdminSettings: View {
             Spacer()
             
             Button("Speichern") {
+                if isUpdating {
+                    return
+                }
                 saveProvenanceSelection()
                 saveTopicSelections()
                 refreshAppState()

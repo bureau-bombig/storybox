@@ -18,6 +18,9 @@ struct WelcomeView: View {
                 .scaledToFill()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    appState.fetchLocalData()
+                }
              
             
             VStack() {
@@ -53,7 +56,7 @@ struct WelcomeView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundColor(.AppSecondary)
                                 .frame(width: 64, height: 64)
-                                .padding(.trailing, 16)
+                                .padding(.trailing, 0)
                             Text("Answer in any language you prefer!")
                                 .font(.golosUIBold(size: 26))
                                 .foregroundColor(.white)
@@ -95,7 +98,7 @@ struct WelcomeView: View {
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Fehler in den Administrationseinstellungen"),
-                message: Text("Bitte einem Administrator bescheid geben"),
+                message: Text("Bitte wähle ein Event und/oder Fragensets auswählen."),
                 dismissButton: .default(Text("OK"))
             )
         }
@@ -148,7 +151,7 @@ private class KeyboardViewController: UIViewController {
                 nextAction?() 
             }
             
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+            if key.keyCode.rawValue == 69 {
                 AppManager.shared.restartApplication()
             }
         }

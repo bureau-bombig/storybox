@@ -212,8 +212,7 @@ struct LegalDocumentsView: View {
 
         <p>(2) Ich bin damit einverstanden, dass ich bei Rückfragen zu meinem Material ggf. über meine E-Mail-Adresse kontaktiert werde.</p>
 
-        <p>(3) Mir ist bewusst, dass das eingereichte Material moderiert und ggf. veröffentlicht wird. Es besteht kein Recht auf eine Veröffentlichung.<br />
-        Strafbare Inhalte werden nicht veröffentlicht und ggf. zur Anzeige gebracht.</p>
+        <p style="text-decoration: underline;">(3) Mir ist bewusst, dass das eingereichte Material moderiert, durch eine wissenschaftliche Redaktion geprüft und ggf. veröffentlicht wird. Es besteht kein Recht auf eine Veröffentlichung. Diskriminierende und/oder strafbare Inhalte werden nicht veröffentlicht und ggf. zur Anzeige gebracht. </p>
 
         <p>(4) Das von mir hochgeladene Material verletzt keine Urheber- und Persönlichkeitsrechte Dritter.</p>
 

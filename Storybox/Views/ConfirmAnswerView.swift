@@ -14,6 +14,7 @@ struct ConfirmAnswerView: View {
     @State private var player: AVPlayer?
     @State private var isPlaying = false
     @State private var focusedIndex: Int = 2  // 0 for Play, 1 for Delete, 2 for Submit
+    @State private var showConfirmation = false
 
 
     private var relevantQuestions: [Question] {
@@ -84,6 +85,9 @@ struct ConfirmAnswerView: View {
             .background(Color.AppPrimary)
             .edgesIgnoringSafeArea(.all)
             .background(KeyboardResponder(focusedIndex: $focusedIndex, actionHandlers: [togglePlayback, deleteRecording, submitRecording]).frame(width: 0, height: 0, alignment: .center))
+            .overlay(
+                confirmationOverlay  // Add the confirmation overlay
+            )
 
         }
     }
@@ -94,17 +98,41 @@ struct ConfirmAnswerView: View {
             Button(isPlaying ? "Stoppen" : "Abspielen") {
                 togglePlayback()
             }
-            .styledButton(focused: focusedIndex == 0)
+            .styledButton(focused: focusedIndex == 0, outline: true)
 
             Button("Löschen") {
                 deleteRecording()
             }
-            .styledButton(focused: focusedIndex == 1)
+            .styledButton(focused: focusedIndex == 1, outline: true)
             
             Button("Einreichen") {
                 submitRecording()
             }
             .styledButton(focused: focusedIndex == 2)
+        }
+    }
+    
+    private var confirmationOverlay: some View {
+        Group {
+            if showConfirmation {
+                VStack {
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.green)
+                        .padding(.bottom, 20)
+                    Text("Antwort eingereicht")
+                        .font(.golosUIRegular(size: 20))
+                        .foregroundColor(.green)
+                }
+                .padding(40)
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(radius: 10)
+                .transition(.opacity)
+                .animation(.easeInOut(duration: 0.5))
+            }
         }
     }
 
@@ -129,6 +157,31 @@ struct ConfirmAnswerView: View {
         fileURLManager.outputFileLocation = nil
     }
 
+    
+    private func submitRecording() {
+        withAnimation {
+            showConfirmation = true  // Show confirmation overlay
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {  // Show confirmation for 1 second
+            withAnimation {
+                showConfirmation = false  // Hide confirmation overlay
+            }
+            ItemService.shared.createItem(from: appState, recordingURL: fileURLManager.outputFileLocation)
+            if appState.currentQuestionIndex < relevantQuestions.count - 1 {
+                // Move to the next question
+                appState.currentQuestionIndex += 1
+                appState.currentView = .answerQuestion
+            } else {
+                // No more questions, show thank you screen
+                appState.currentView = .thankYou
+            }
+            player?.pause()
+            player = nil
+        }
+    }
+    
+    /*
     private func submitRecording() {
         ItemService.shared.createItem(from: appState, recordingURL: fileURLManager.outputFileLocation)
         if appState.currentQuestionIndex < relevantQuestions.count - 1 {
@@ -142,6 +195,7 @@ struct ConfirmAnswerView: View {
         player?.pause()
         player = nil
     }
+     */
 
     private struct KeyboardResponder: UIViewControllerRepresentable {
         @Binding var focusedIndex: Int
@@ -192,13 +246,12 @@ private class KeyboardViewController: UIViewController {
                 } else {
                     playErrorSound()
                 }
+            case (69):
+                AppManager.shared.restartApplication()
             case 44, 40: // space bar
                 actionHandlers[focusedIndex.wrappedValue]()
             default:
                 break
-            }
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
-                AppManager.shared.restartApplication()
             }
         }
     }

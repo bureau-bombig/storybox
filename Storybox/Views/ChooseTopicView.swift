@@ -170,6 +170,8 @@ private class KeyboardViewController: UIViewController {
                 }  else {
                     playErrorSound()
                 }
+            case (69):
+                AppManager.shared.restartApplication()
             case 44, 40: // space bar
                 if let index = focusedIndex.wrappedValue, index >= 0 && index < topicsCount {
                     action()  // Trigger the action associated with the selected topic
@@ -178,9 +180,6 @@ private class KeyboardViewController: UIViewController {
                 }
             default:
                 break
-            }
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
-                AppManager.shared.restartApplication()
             }
         }
     }

@@ -18,7 +18,18 @@ struct AdminUpload: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.dateAccepted, ascending: false)]
     ) var items: FetchedResults<Item>
     
-    
+    private var availableDiskSpace: String {
+         let fileURL = URL(fileURLWithPath: NSHomeDirectory() as String)
+         do {
+             let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+             if let capacity = values.volumeAvailableCapacityForImportantUsage {
+                 return ByteCountFormatter.string(fromByteCount: Int64(capacity), countStyle: .file)
+             }
+         } catch {
+             print("Error retrieving available disk space: \(error.localizedDescription)")
+         }
+         return "N/A"
+     }
     
     var body: some View {
         VStack {
@@ -44,6 +55,10 @@ struct AdminUpload: View {
                 .font(.golosUIBold(size: 45))
                 .foregroundColor(.white)
             Spacer()
+            Text("Verfügbarer Speicherplatz: \(availableDiskSpace)")
+                .font(.golosUIRegular(size: 18))
+                .foregroundColor(.white)
+                .padding(.leading, 20)
         }
     }
 

@@ -33,7 +33,7 @@ struct ThankYouView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.60, alignment: .center)
                             .padding(.bottom, 20)
                         
-                        Text("Du findest deine Beiträge nach ein paar Tagen im Coronarchiv.")
+                        Text("Du findest deine Beiträge nach ein paar Tagen im Freiheitsarchiv.")
                             .font(.golosUIRegular(size: 26))
                             .lineSpacing(12)
                             .foregroundColor(.white)
@@ -48,6 +48,11 @@ struct ThankYouView: View {
                         .multilineTextAlignment(.center)
                         .frame(width: UIScreen.main.bounds.width, alignment: .center)
                 }
+                Spacer()
+                Image("qr-code")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 128, height: 128)
                 Spacer()
                 HStack {
                     VStack {
@@ -107,7 +112,7 @@ private class KeyboardViewController: UIViewController {
                 nextAction?()
 
             }
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
+            if key.keyCode.rawValue == 69 {
                 AppManager.shared.restartApplication()
             }
         }

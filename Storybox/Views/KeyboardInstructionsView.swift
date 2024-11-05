@@ -32,11 +32,11 @@ struct KeyboardInstructionsView: View {
             HStack(spacing: 12) {
                 InstructionView(
                     image: "arrowkeys",
-                    text: "Pfeiltasten zum navigieren"
+                    text: "Pfeiltasten zum Navigieren"
                 )
                 InstructionView(
                     image: "Spacebar",
-                    text: "Leertaste zum bestätigen"
+                    text: "Leertaste zum Bestätigen"
                 )
             }
             .frame(maxWidth: .infinity)
@@ -53,7 +53,7 @@ struct KeyboardInstructionsView: View {
             Button("Zurück zum Start") {
                 self.backAction()
             }
-            .styledButton(focused: focusedIndex == 0)
+            .styledButton(focused: focusedIndex == 0, outline: true)
             
                 Spacer()
                 
@@ -124,12 +124,10 @@ private class KeyboardViewController: UIViewController {
                 }
             case 44, 40: // space bar
                 actionHandlers[focusedIndex.wrappedValue]()
+            case (69):
+                AppManager.shared.restartApplication()
             default:
                 break
-            }
-            
-            if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
-                AppManager.shared.restartApplication()
             }
         }
     }

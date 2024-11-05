@@ -33,7 +33,7 @@ struct UserDataInputView: View {
                         .font(.golosUIBold(size: 45))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)
-                    Text("es los geht")
+                    Text("es losgeht")
                         .font(.literata(size: 45))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)
@@ -42,7 +42,7 @@ struct UserDataInputView: View {
                         Spacer()
                         
                         
-                        Text("Wir brauchen nur ein paar Angaben zu deiner Person, deine Zustimmung zu unseren Bestimmungen und dann kann es schon los gehen!")
+                        Text("Wir brauchen nur ein paar Angaben zu deiner Person, deine Zustimmung zu unseren Bestimmungen und dann kann es schon losgehen!")
                             .font(.golosUIRegular(size: 20))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.leading)
@@ -121,7 +121,7 @@ struct UserDataInputView: View {
                         Button("Zurück") {
                             self.backAction()
                         }
-                        .styledButton(focused: focusedIndex == 7)
+                        .styledButton(focused: focusedIndex == 7, outline: true)
                         
                         Spacer()
 
@@ -352,14 +352,12 @@ private class KeyboardViewController: UIViewController {
             if deleteTimer == nil {
                 startDeleting()
             }
+        case (69):
+            AppManager.shared.restartApplication()
         default:
             if let character = mapKeyToCharacter(key: key) {
                 appendText(character)
             }
-        }
-        
-        if key.modifierFlags.intersection([.control, .shift, .alternate]).contains([.control, .shift, .alternate]) && key.charactersIgnoringModifiers == "q" {
-            AppManager.shared.restartApplication()
         }
     }
     
@@ -542,7 +540,7 @@ private struct CustomTextField: UIViewRepresentable {
         uiView.text = text
         if isFocused.wrappedValue {
             uiView.layer.borderColor = UIColor(named: "AppSecondary")?.cgColor ?? UIColor.blue.cgColor
-            uiView.layer.borderWidth = 5 // Increase border width when focused
+            uiView.layer.borderWidth = 8 // Increase border width when focused
             uiView.becomeFirstResponder()
         } else {
             uiView.layer.borderColor = UIColor.white.cgColor
